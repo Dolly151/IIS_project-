@@ -1,0 +1,44 @@
+form {
+    max-width: 340px;
+    margin: auto;
+    padding: 20px;
+    background-color: var(--color-gray);
+    border-radius: 3px;
+}
+
+input {
+    border-radius: 3px;
+}
+
+input:focus {
+  outline: none !important;    
+  box-shadow: none !important;   
+  border-color: var(--color-primary) !important;
+}
+
+label::after {
+    content: "*";
+    color: rgb(255, 0, 0);
+}
+
+.login-container {
+    transform: translateY(20vh);
+}
+
+.form-group {
+    margin: 10px auto;
+}
+
+.btn-primary {
+    background-color: rgb(39, 50, 150);
+    width: 70%;
+    padding: 10px;
+    justify-self: center;
+    transition: 0.5s ease;
+    border-radius: 3px;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-secondary);
+}
