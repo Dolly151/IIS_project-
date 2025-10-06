@@ -205,6 +205,31 @@ CREATE TABLE IF NOT EXISTS `mydb`.`uzivatel_ma_hodnoceni` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+DELETE FROM `mydb`.`kurz`;
+DELETE FROM `mydb`.`uzivatel`;
+ALTER TABLE `mydb`.`uzivatel` AUTO_INCREMENT = 1;
+ALTER TABLE `mydb`.`kurz` AUTO_INCREMENT = 1;
+
+INSERT INTO `mydb`.`uzivatel`
+(`login`, `heslo`, `rodne_cislo`, `jmeno`, `prijmeni`, `datum_narozeni`, `adresa`, `email`, `role`) VALUES
+('teacher1', '123456', '000111/1234', 'Ucitel', 'Prvni', '1980-01-01 00:00:00', 'Brno', 'teacher1@wis.cz', 2),
+('teacher2', '123456', '000222/1234', 'Ucitel', 'Druhy', '1981-01-01 00:00:00', 'Brno', 'teacher2@wis.cz', 2),
+('teacher3', '123456', '000333/1234', 'Ucitel', 'Treti', '1982-01-01 00:00:00', 'Brno', 'teacher3@wis.cz', 2);
+
+INSERT INTO `mydb`.`kurz` (`zkratka`, `nazev`, `popis`, `cena`, `limit`, `garant_ID`) VALUES
+('IZP', 'Základy programování', 'Popis IZP.....', 5, 500, 1),
+('IDM', 'Diskrétní matematika', 'Popis IDM.....', 4, 450, 1),
+('ILG', 'Lineární algebra', 'Popis ILG.....', 6, 400, 3),
+('IUS', 'Úvod do SW inženýrství', 'Popis IUS.....', 5, 350, 3),
+('IEL', 'Elektronika pro informační technologie', 'Popis IEL.....', 4, 300, 3),
+('INC', 'Návrh číslicových systémů', 'Popis INC.....', 6, 400, 2),
+('IOS', 'Operační systémy', 'Popis IOS.....', 5, 450, 1),
+('ITW', 'Tvorba webových stránek', 'Popis ITW.....', 4, 300, 2),
+('IIS', 'Informační systémy', 'Popis IIS.....', 6, 500, 2),
+('IDS', 'Databázové systémy', 'Popis IDS.....', 5, 400, 2),
+('IPK', 'Počítačové komunikace a sítě', 'Popis IPK.....', 6, 450, 3),
+('ISA', 'Síťové aplikace', 'Popis ISA.....', 5, 350, 3);
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

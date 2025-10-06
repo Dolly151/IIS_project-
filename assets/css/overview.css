@@ -1,17 +1,13 @@
-.row {
-    width: 100%;
-    gap: 10px;
-}
-
 .col {
-    width: calc(25% - 10px);
-    height: 150px;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     border: 1px solid var(--color-gray);
     position: relative;
     transition: .3s ease;
+    padding: 10px;
+    margin: 10px;
 }
 
 .col:hover::after {
