@@ -7,9 +7,9 @@ class PermissionService
 {
     private Repository $repository;
 
-    public function __construct(Repository $repository)
+    public function __construct()
     {
-        $this->repository = $repository;
+        $this->repository = RepositoryFactory::create();
     }
 
     private function validatePermissionLevel(PermissionLevel $level): bool

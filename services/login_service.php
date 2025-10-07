@@ -7,9 +7,9 @@ class LoginService
 {
     private Repository $repository;
 
-    public function __construct(Repository $repository)
+    public function __construct()
     {
-        $this->repository = $repository;
+        $this->repository = RepositoryFactory::create();
     }
 
     public function authenticate(string $login, string $password): bool

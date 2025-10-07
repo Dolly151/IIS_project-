@@ -2,7 +2,7 @@
 require_once 'repository_factory.php'; // Adjust the path as needed
 
 // Create an instance of the repository
-$repository = RepositoryFactory::getRepository();
+$repository = RepositoryFactory::create();
 
 try {
     // Insert a record into the Uzivatel table
