@@ -1,4 +1,6 @@
 <?php 
+    require_once('../common/common.php');
+
     $error_login = $error_password = "";
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (empty($_POST['login'])) {
@@ -13,19 +15,9 @@
             $password = $_POST['pwd'];
         }
     }
+    
+    make_header('WIS - přihlásení', 'login')
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../assets/css/main.css">
-    <link rel="stylesheet" href="../assets/css/login.css">
-    <title>WIS - přihlásení</title>
-</head>
 
 <body>
     <div class="wrapper d-flex">
@@ -53,10 +45,11 @@
                             <div class="invalid-feedback"><?php echo $error_password; ?></div>
                         <?php endif; ?>
                     </div>
-                    <div class="form-group">
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-primary">Přihlásit</button>
-                        </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary">Přihlásit</button>
+                    </div>
+                    <div class="form-group text-center">
+                        <a href="" class="text-center">Registrovat se</a>
                     </div>
                 </form> 
             </div>

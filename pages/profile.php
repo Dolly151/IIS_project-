@@ -1,16 +1,8 @@
-<?php // profile.php ?>
+<?php
+    require_once('../common/common.php');
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../assets/css/main.css">
-    <link rel="stylesheet" href="../assets/css/profile.css">
-    <title>WIS - Profil</title>
-</head>
+    make_header('WIS- profile', 'profile');
+?>
 
 <body>
     <div class="wrapper d-flex">
@@ -20,7 +12,7 @@
         </header>
 
         <main>
-            <div class="container profile d-flex h-50 profile">
+            <div class="container profile d-flex flex-column h-50">
                 <h1>Profil uživatele</h1>
                 <!--Profile details will be taken from database-->
                 <div class="container details">

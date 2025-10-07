@@ -1,3 +1,9 @@
+a {
+    font-size: 14px;
+    text-decoration: underline;
+    color: var(--color-primary);
+}
+
 form {
     max-width: 340px;
     margin: auto;
@@ -17,7 +23,7 @@ input:focus {
 }
 
 label::after {
-    content: "*";
+    content: " *";
     color: rgb(255, 0, 0);
 }
 
@@ -33,7 +39,6 @@ label::after {
     background-color: rgb(39, 50, 150);
     width: 70%;
     padding: 10px;
-    justify-self: center;
     transition: 0.5s ease;
     border-radius: 3px;
     border: none;
