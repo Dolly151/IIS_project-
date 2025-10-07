@@ -1,4 +1,8 @@
-<?php // overview.php ?>
+<?php // overview.php
+    require_once __DIR__ . '/../data/repository.php';
+    $repository = new Repository('localhost', 'root', '', 'mydb');
+    $courses = $repository->getAll('kurz');
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,68 +24,24 @@
 
         <main>
             <div class="container d-flex justify-content-center h-100 align-items-center">
-                <div class="row row-cols-4">
-                    <!--this is just demonstration, courses will be taken from database-->
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+                    <?php foreach ($courses as $course) :?>
                     <div class="col">
-                        <p class="short">IZP</p>
-                        <p>Základy programování</p>
-                        <p class="garant">Garant předmetu: Teacher1</p>
+                        <p class="short"><?php echo htmlspecialchars($course['zkratka'])?></p>
+                        <p><?php echo htmlspecialchars($course['nazev'])?></p>
+                        <p class="garant">Garant předmetu: 
+                            <?php 
+                                $garant = $repository->getByCondition('uzivatel', ['ID' => $course['garant_ID']]);
+                                if (!empty($garant)) {
+                                    echo htmlspecialchars($garant[0]['jmeno'].' '.$garant[0]['prijmeni']);
+                                }
+                                else {
+                                    echo 'NULL';
+                                }
+                            ?>
+                        </p>
                     </div>
-                    <div class="col">
-                        <p class="short">IDM</p>
-                        <p>Diskrétní matematika</p>
-                        <p class="garant">Garant předmetu: Teacher1</p>
-                    </div>
-                    <div class="col">
-                        <p class="short">ILG</p>
-                        <p>Lineární algebra</p>
-                        <p class="garant">Garant předmetu: Teacher3</p>
-                    </div>
-                    <div class="col">
-                        <p class="short">IUS</p>
-                        <p>Úvod do SW inženýrství</p>
-                        <p class="garant">Garant předmetu: Teacher3</p>
-                    </div>
-                    <div class="col">
-                        <p class="short">IEL</p>
-                        <p>Elektronika pro informační technológie</p>
-                        <p class="garant">Garant předmetu: Teacher3</p>
-                    </div>
-                    <div class="col">
-                        <p class="short">INC</p>
-                        <p>Návrh číslicových systému</p>
-                        <p class="garant">Garant předmetu: Teacher2</p>
-                    </div>
-                    <div class="col">
-                        <p class="short">IOS</p>
-                        <p>Operační systémy</p>
-                        <p class="garant">Garant předmetu: Teacher1</p>
-                    </div>
-                    <div class="col">
-                        <p class="short">ITW</p>
-                        <p>Tvorba webových stránek</p>
-                        <p class="garant">Garant předmetu: Teacher2</p>
-                    </div>
-                    <div class="col">
-                        <p class="short">IIS</p>
-                        <p>Informační systémy</p>
-                        <p class="garant">Garant předmetu: Teacher2</p>
-                    </div>
-                    <div class="col">
-                        <p class="short">IDS</p>
-                        <p>Databázové systémy</p>
-                        <p class="garant">Garant předmetu: Teacher2</p>
-                    </div>
-                    <div class="col">
-                        <p class="short">IPK</p>
-                        <p>Počítačové komunikace a sítě</p>
-                        <p class="garant">Garant předmetu: Teacher3</p>
-                    </div>
-                    <div class="col">
-                        <p class="short">ISA</p>
-                        <p>Síťové aplikace</p>
-                        <p class="garant">Garant předmetu: Teacher3</p>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </main>

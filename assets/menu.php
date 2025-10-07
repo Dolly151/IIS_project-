@@ -7,6 +7,7 @@
                 Přehled
             </a>
         </li>
+        <!--
         <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'profile.php') echo 'active' ?>">
             <a href="profile.php">
                 <i class="fa fa-user"></i> 
@@ -18,7 +19,7 @@
                 <i class="fa fa-television"></i> 
                 Rozvrh
             </a>
-        </li>
+        </li>-->
         <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'login.php') echo 'active' ?>">
             <a href="login.php">
                 <i class="fa fa-sign-in"></i> 
