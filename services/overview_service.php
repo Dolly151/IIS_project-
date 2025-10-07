@@ -19,7 +19,7 @@ Class OverviewService
     public function getAllCoursesJoinGarant(): array
     {
         $courses = $this->repository->getAll('Kurz');
-        foreach ($courses as $course) {
+        foreach ($courses as &$course) {
             $garantId = $course['garant_ID'];
             $garant = $this->repository->getOneById('Uzivatel', ['jmeno', 'prijmeni'], $garantId);
             if ($garant) {
@@ -29,6 +29,7 @@ Class OverviewService
                 $course['garant_ID'] = null;
             }
         }
+        unset($course);
         return $courses;
     }
 }

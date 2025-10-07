@@ -1,5 +1,5 @@
 <nav class="navbar">
-    <a href="overview.php"><img src="img/logo.png" alt="FIT VUT logo" class="logo"></a>
+    <a href="overview.php"><img src="../assets/img/logo.png" alt="FIT VUT logo" class="logo"></a>
     <ul class="navbar-nav">
         <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'overview.php') echo 'active' ?>">
             <a href="overview.php">

@@ -1,20 +1,22 @@
 <?php // overview.php
-    require_once __DIR__ . '/../data/repository.php';
-    $repository = new Repository('localhost', 'root', '', 'mydb');
-    $courses = $repository->getAll('kurz');
+    require_once '../services/overview_service.php';
+
+    $service = new OverviewService();
+    $courses = $service->getAllCoursesJoinGarant();;
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en">    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/overview.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/overview.css">
     <title>WIS - přehled</title>
 </head>
+
 <body>
     <div class="wrapper d-flex">
 
@@ -29,16 +31,8 @@
                     <div class="col">
                         <p class="short"><?php echo htmlspecialchars($course['zkratka'])?></p>
                         <p><?php echo htmlspecialchars($course['nazev'])?></p>
-                        <p class="garant">Garant předmetu: 
-                            <?php 
-                                $garant = $repository->getByCondition('uzivatel', ['ID' => $course['garant_ID']]);
-                                if (!empty($garant)) {
-                                    echo htmlspecialchars($garant[0]['jmeno'].' '.$garant[0]['prijmeni']);
-                                }
-                                else {
-                                    echo 'NULL';
-                                }
-                            ?>
+                        <p class="garant">
+                            Garant předmetu: <?php echo htmlspecialchars($course['garant_ID']['jmeno'].' '.$course['garant_ID']['prijmeni']);?>
                         </p>
                     </div>
                     <?php endforeach; ?>
