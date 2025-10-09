@@ -12,7 +12,15 @@ class LoginService
         $this->repository = RepositoryFactory::create();
     }
 
-    public function authenticate(string $login, string $password): bool
+    public function authenticate() : bool
+    {
+        $login = $_POST['login'];
+        $password = $_POST['pwd'];
+
+        return $this->authenticateParams($login, $password);
+    }
+
+    private function authenticateParams(string $login, string $password): bool
     {
         $user = $this->repository->getByCondition('Uzivatel', ['ID', 'heslo'], ['login' => $login]);
         if ($user && password_verify($password, $user[0]['heslo'])) {
@@ -25,7 +33,8 @@ class LoginService
 
     public function logout(): void
     {
-        session_unset();
+        session_unset('login');
+        session_unset('pwd');
         session_destroy();
     }
 

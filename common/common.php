@@ -1,4 +1,6 @@
 <?php 
+    session_start();
+    
     function make_header($title, $file) { ?>
         <!DOCTYPE html>
         <html lang="en">    
