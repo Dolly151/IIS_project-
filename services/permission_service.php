@@ -14,15 +14,16 @@ class PermissionService
 
     public static function requireRole(PermissionLevel $level): void
     {
-        if ($level === PermissionLevel::ANY) {
-            return;
-        }
-
+        
         if (!isset($_SESSION['role'])) {
             echo "<h1>Access forbidden via PermissionService</h1>";
             exit();
         }
-
+        
+        if ($level === PermissionLevel::ANY) {
+            return;
+        }
+        
         if ($_SESSION['role'] !== $level->value) {
             echo "<h1>Access forbidden via PermissionService</h1>";
             exit();
@@ -99,6 +100,18 @@ class PermissionService
             PermissionLevel::LECTOR->value => PermissionLevel::LECTOR,
             PermissionLevel::GARANT->value => PermissionLevel::GARANT,
             default => PermissionLevel::GUEST,
+        };
+    }
+
+    public static function permissionLevelToString(PermissionLevel $level): string
+    {
+        return match ($level) {
+            PermissionLevel::GUEST => 'Guest',
+            PermissionLevel::ADMIN => 'Admin',
+            PermissionLevel::STUDENT => 'Student',
+            PermissionLevel::LECTOR => 'Lektor',
+            PermissionLevel::GARANT => 'Garant',
+            PermissionLevel::ANY => 'Any',
         };
     }
 }

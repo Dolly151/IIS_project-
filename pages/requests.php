@@ -12,5 +12,16 @@
     make_header('WIS - Žádosti', 'requests');
 ?>
 
+<body>
+    <div class="wrapper d-flex">
 
-<!-- todo: request page -->
+        <header>
+            <?php include __DIR__ . '/menu.php'; ?>
+        </header>
+        
+        <!-- todo: request page -->
+
+
+    </div>
+</body>
+</html>

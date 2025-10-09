@@ -70,7 +70,7 @@ class LoginService
     private function registerParam(string $login, string $firstName, string $lastName, string $email, 
                             string $password, string $rodneCislo, string $birthDate, string $address): bool
     {
-        if ($this->repository->exists('Uzivatel', ['email' => $email])) {
+        if ($this->repository->exists('Uzivatel', ['login' => $login])) {
             return false; // User already exists
         }
 
@@ -89,4 +89,5 @@ class LoginService
 
         return $this->repository->insert('Uzivatel', $data);
     }
+
 }
