@@ -29,7 +29,7 @@ class PermissionService
         }
     }
 
-    private function validatePermissionLevel(PermissionLevel $level): bool
+    private static function validatePermissionLevel(PermissionLevel $level): bool
     {
         if (!isset($_SESSION['role'])) {
             return false;
@@ -43,33 +43,33 @@ class PermissionService
         return isset($_SESSION['user_id']) && isset($_SESSION['role']);
     }
 
-    public function isUserAdmin(): bool
+    public static function isUserAdmin(): bool
     {
-        return $this->validatePermissionLevel(PermissionLevel::ADMIN);
+        return self::validatePermissionLevel(PermissionLevel::ADMIN);
     }
 
-    public function isUserStudent(): bool
+    public static function isUserStudent(): bool
     {
-        return $this->validatePermissionLevel(PermissionLevel::STUDENT);
+        return self::validatePermissionLevel(PermissionLevel::STUDENT);
     }
 
-    public function isUserLector(): bool
+    public static function isUserLector(): bool
     {
-        return $this->validatePermissionLevel(PermissionLevel::LECTOR);
+        return self::validatePermissionLevel(PermissionLevel::LECTOR);
     }
 
-    public function isUserGarant(): bool
+    public static function isUserGarant(): bool
     {
-        return $this->validatePermissionLevel(PermissionLevel::GARANT);
+        return self::validatePermissionLevel(PermissionLevel::GARANT);
     }
 
-    public function getUserPermissionFromSession(): PermissionLevel
+    public static function getUserPermissionFromSession(): PermissionLevel
     {
         if (!isset($_SESSION['role'])) {
             return PermissionLevel::GUEST;
         }
 
-        return $this->intToPermissionLevel($_SESSION['role']);
+        return self::intToPermissionLevel($_SESSION['role']);
     }
 
     public function getUserPermissionLevelDB(int $userId): PermissionLevel
@@ -91,7 +91,7 @@ class PermissionService
         return $ret;
     }
 
-    public function intToPermissionLevel(int $level): PermissionLevel
+    public static function intToPermissionLevel(int $level): PermissionLevel
     {
         return match ($level) {
             PermissionLevel::ADMIN->value => PermissionLevel::ADMIN,
