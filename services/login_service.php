@@ -77,7 +77,7 @@ class LoginService
             'datum_narozeni' => $birthDate,
             'adresa' => $address,
             'email' => $email,
-            'role' => PermissionLevel::STUDENT->value
+            'role' => PermissionLevel::GUEST->value
         ];
 
         return $this->repository->insert('Uzivatel', $data);

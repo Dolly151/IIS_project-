@@ -14,6 +14,10 @@ class PermissionService
 
     public static function requireRole(PermissionLevel $level): void
     {
+        if ($level === PermissionLevel::ANY) {
+            return;
+        }
+
         if (!isset($_SESSION['role'])) {
             echo "<h1>Access forbidden via PermissionService</h1>";
             exit();

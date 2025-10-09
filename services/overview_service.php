@@ -6,10 +6,7 @@ Class OverviewService
 {
     private Repository $repository;
 
-    private function getDummyGarant() : array {
-        return ['jmeno' => 'Nezadán', 'prijmeni' => ''];
-    }
-
+    
     public function __construct()
     {
         $this->repository = RepositoryFactory::create();
@@ -39,5 +36,13 @@ Class OverviewService
         }
         unset($course);
         return $courses;
+    }
+    
+    private function getDummyGarant() : array {
+        return ['jmeno' => 'Nezadán', 'prijmeni' => ''];
+    }
+    
+    private function getDummyCourse() : array {
+        return ['nazev' => 'Žádný kurz ještě nebyl vytvořen', 'popis' => '', 'garant_ID' => $this->getDummyGarant(), 'cena' => 0, 'limit' => 0];
     }
 }
