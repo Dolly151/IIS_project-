@@ -3,6 +3,7 @@
 class Repository
 {
     private $conn;
+    public $lastError;
 
     function __construct($servername, $username, $password, $dbname)
     {
@@ -22,6 +23,17 @@ class Repository
         }
         $ret_str = rtrim($ret_str, ", ");
         return $ret_str;
+    }
+
+    private function tryQuery(string $sql) : ?mysqli_result
+    {
+        try {
+            $result = $this->conn->query($sql);
+            return $result;
+        } catch (Exception $e) {
+            $this->lastError = $e;
+            return null;
+        }
     }
 
     function getAll(string $table, array $selector = []) : array

@@ -19,7 +19,7 @@
             <div class="container d-flex justify-content-center h-100 align-items-center">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 gap-3">
                     <?php foreach ($courses as $course) :?>
-                    <div class="col d-flex flex-column gap-4 h-auto justify-content-center p-3">
+                    <div class="col d-flex flex-column gap-4 w-auto h-auto justify-content-center p-3">
                         <div>
                             <h3 class="short"><?php echo htmlspecialchars($course['zkratka'])?></h3>
                             <p><?php echo htmlspecialchars($course['nazev'])?></p>
