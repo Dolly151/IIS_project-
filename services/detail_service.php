@@ -1,6 +1,6 @@
 <?php 
 
-require_once '../data/repository_factory.php';
+require_once __DIR__ . '/../data/repository_factory.php';
 
 class DetailService
 {
@@ -13,7 +13,7 @@ class DetailService
 
     public function getCourseDetail($id): array 
     {
-        $course = $this->repository->getOneById('Kurz', ['nazev', 'popis', 'garant_ID', 'cena'], $id);
+        $course = $this->repository->getOneById('Kurz', ['nazev', 'popis', 'garant_ID', 'cena', 'limit'], $id);
         if (!$course) 
         {
             return [];

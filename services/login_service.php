@@ -1,7 +1,7 @@
 <?php
 
-require_once '../common/enums.php';
-require_once '../data/repository_factory.php';
+require_once __DIR__ . '/../common/enums.php';
+require_once __DIR__ . '/../data/repository_factory.php';
 
 class LoginService
 {
@@ -19,6 +19,7 @@ class LoginService
 
         return $this->authenticateParams($login, $password);
     }
+
 
     private function authenticateParams(string $login, string $password): bool
     {
@@ -38,6 +39,13 @@ class LoginService
         session_destroy();
     }
 
+    public function isEverythingSetForRegister(): bool
+    {
+        return isset($_POST['login']) && isset($_POST['firstName']) && isset($_POST['lastName']) &&
+               isset($_POST['email']) && isset($_POST['pwd']) && isset($_POST['rodneCislo']) &&
+               isset($_POST['birthDate']) && isset($_POST['address']);
+    }
+
     public function register(): bool
     {
         $login = $_POST['login'];
@@ -45,15 +53,15 @@ class LoginService
         $lastName = $_POST['lastName'];
         $email = $_POST['email'];
         $password = $_POST['pwd'];
-        $rodnecislo = $_POST['rodnecislo'];
+        $rodneCislo = $_POST['rodneCislo'];
         $birthDate = $_POST['birthDate'];
         $address = $_POST['address'];
 
-        return $this->registerParam($login, $firstName, $lastName, $email, $password, $rodnecislo, $birthDate, $address);
+        return $this->registerParam($login, $firstName, $lastName, $email, $password, $rodneCislo, $birthDate, $address);
     }
 
-    private function registerParam(int $login, string $firstName, string $lastName, string $email, 
-                            string $password, string $rodnecislo, string $birthDate, string $address): bool
+    private function registerParam(string $login, string $firstName, string $lastName, string $email, 
+                            string $password, string $rodneCislo, string $birthDate, string $address): bool
     {
         if ($this->repository->exists('Uzivatel', ['email' => $email])) {
             return false; // User already exists
@@ -63,7 +71,7 @@ class LoginService
         $data = [
             'login' => $login,
             'heslo' => $hashedPassword,
-            'rodne_cislo' => $rodnecislo,
+            'rodne_cislo' => $rodneCislo,
             'jmeno' => $firstName,
             'prijmeni' => $lastName,
             'datum_narozeni' => $birthDate,

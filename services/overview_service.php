@@ -1,6 +1,6 @@
 <?php
 
-require_once '../data/repository_factory.php';
+require_once __DIR__ . '/../data/repository_factory.php';
 
 Class OverviewService
 {

@@ -28,8 +28,7 @@
 
         <main>
             <div class="container login-container">
-                <!--TODO: add action file-->
-                <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post">
+                <form action="actions/login_action.php" method="post">
                     <h3 class="text-center">Přihlásení</h3>
                     <div class="form-group">
                         <label for="text" class="form-label">Login</label>
@@ -49,7 +48,7 @@
                         <button type="submit" class="btn btn-primary">Přihlásit</button>
                     </div>
                     <div class="form-group text-center">
-                        <a href="" class="text-center">Registrovat se</a>
+                        <a href="register.php" class="text-center">Registrovat se</a>
                     </div>
                 </form> 
             </div>
