@@ -19,7 +19,7 @@ class Repository
 
         $ret_str = "";
         foreach ($selector as $value) {
-            $ret_str = $ret_str . $value . ', ';
+            $ret_str = $ret_str . '`' . $value . '`, ';
         }
         $ret_str = rtrim($ret_str, ", ");
         return $ret_str;
