@@ -33,12 +33,26 @@ class LoginService
 
     public function logout(): void
     {
-        session_unset('login');
-        session_unset('pwd');
+        session_unset('user_id');
+        session_unset('role');
         session_destroy();
     }
 
-    public function register(int $login, string $firstName, string $lastName, string $email, 
+    public function register(): bool
+    {
+        $login = $_POST['login'];
+        $firstName = $_POST['firstName'];
+        $lastName = $_POST['lastName'];
+        $email = $_POST['email'];
+        $password = $_POST['pwd'];
+        $rodnecislo = $_POST['rodnecislo'];
+        $birthDate = $_POST['birthDate'];
+        $address = $_POST['address'];
+
+        return $this->registerParam($login, $firstName, $lastName, $email, $password, $rodnecislo, $birthDate, $address);
+    }
+
+    private function registerParam(int $login, string $firstName, string $lastName, string $email, 
                             string $password, string $rodnecislo, string $birthDate, string $address): bool
     {
         if ($this->repository->exists('Uzivatel', ['email' => $email])) {

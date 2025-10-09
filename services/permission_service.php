@@ -12,6 +12,19 @@ class PermissionService
         $this->repository = RepositoryFactory::create();
     }
 
+    public static function requireRole(PermissionLevel $level): void
+    {
+        if (!isset($_SESSION['role'])) {
+            echo "<h1>Access forbidden via PermissionService</h1>";
+            exit();
+        }
+
+        if ($_SESSION['role'] !== $level->value) {
+            echo "<h1>Access forbidden via PermissionService</h1>";
+            exit();
+        }
+    }
+
     private function validatePermissionLevel(PermissionLevel $level): bool
     {
         if (!isset($_SESSION['role'])) {
