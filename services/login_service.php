@@ -23,9 +23,11 @@ class LoginService
 
     private function authenticateParams(string $login, string $password): bool
     {
-        $user = $this->repository->getByCondition('Uzivatel', ['ID', 'heslo'], ['login' => $login]);
+        // ensure we also retrieve the role so we can set it in the session
+        $user = $this->repository->getByCondition('Uzivatel', ['ID', 'heslo', 'role'], ['login' => $login]);
         if ($user && password_verify($password, $user[0]['heslo'])) {
             $_SESSION['user_id'] = $user[0]['ID'];
+            // role must exist in the selected columns
             $_SESSION['role'] = $user[0]['role'];
             return true;
         }
@@ -34,8 +36,13 @@ class LoginService
 
     public function logout(): void
     {
-        session_unset('user_id');
-        session_unset('role');
+        // remove only the specific session keys set by this app
+        if (isset($_SESSION['user_id'])) {
+            unset($_SESSION['user_id']);
+        }
+        if (isset($_SESSION['role'])) {
+            unset($_SESSION['role']);
+        }
         session_destroy();
     }
 

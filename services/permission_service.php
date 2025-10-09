@@ -38,6 +38,11 @@ class PermissionService
         return $_SESSION['role'] === $level->value;
     }
 
+    public static function isUserLoggedIn(): bool
+    {
+        return isset($_SESSION['user_id']) && isset($_SESSION['role']);
+    }
+
     public function isUserAdmin(): bool
     {
         return $this->validatePermissionLevel(PermissionLevel::ADMIN);

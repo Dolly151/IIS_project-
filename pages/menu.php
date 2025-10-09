@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . '/../services/permission_service.php';
+?>
+
 <nav class="navbar">
     <a href="overview.php"><img src="../assets/img/logo.png" alt="FIT VUT logo" class="logo"></a>
     <ul class="navbar-nav">
@@ -26,5 +30,14 @@
                 Přihlásení
             </a>
         </li>
+        <?php if (PermissionService::isUserLoggedIn()) { ?>
+        <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'requests.php') echo 'active'; ?>">
+            <a href="requests.php">
+                <i class="fa fa-sign-in"></i> 
+                Žádosti
+            </a>
+        </li>
+        <?php } ?>
+
     </ul>
 </nav>
