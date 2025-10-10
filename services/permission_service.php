@@ -23,7 +23,7 @@ class PermissionService
         if ($level === PermissionLevel::ANY) {
             return;
         }
-        
+
         if ($_SESSION['role'] !== $level->value) {
             echo "<h1>Access forbidden via PermissionService</h1>";
             exit();
@@ -37,6 +37,14 @@ class PermissionService
         }
 
         return $_SESSION['role'] === $level->value;
+    }
+
+    public static function isUserThisId(int $id): void
+    {
+        if ($_SESSION['user_id'] != $id) {
+            echo "<h1>Access forbidden via PermissionService, user ID mismatch</h1>";
+            exit();
+        }
     }
 
     public static function isUserLoggedIn(): bool

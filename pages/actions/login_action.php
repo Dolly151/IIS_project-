@@ -8,14 +8,14 @@
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         if ($loginService->authenticate()) {
-            header('Location: ../overview.php');
+            redirect('../overview.php?success=Byli jste úspěšně přihlášeni');
             exit();
         } else {
             $error_message = "Neplatný login nebo heslo.";
-            header('Location: ../login.php?error=' . urlencode($error_message));
+            redirect('../login.php?error=' . urlencode($error_message));
             exit();
         }
     } else {
-        header('Location: ../login.php');
+        redirect('../login.php?error=Neplatný požadavek');
         exit();
     }

@@ -13,23 +13,33 @@ class ProfileService
 
     public function getUserDetail(): array 
     {
-        $user = $this->repository->getOneById('Uzivatel', ['login', 'jmeno', 'prijmeni', 'email', 'rodne_cislo', 'datum_narozeni', 'adresa', 'role'], $_SESSION['user_id']);        
+        $user = $this->repository->getOneById('Uzivatel', ['ID', 'login', 'jmeno', 'prijmeni', 'email', 'rodne_cislo', 'datum_narozeni', 'adresa', 'role'], $_SESSION['user_id']);        
         return $user;
     }
 
     public function updateUserProfile(): bool
     {
         $data = [
-            'login' => $_POST['login'],
+            // 'login' => $_POST['login'],
             'jmeno' => $_POST['firstName'],
             'prijmeni' => $_POST['lastName'],
             'email' => $_POST['email'],
-            'heslo' => $_POST['pwd'],
+            // 'heslo' => $_POST['pwd'],
             'rodne_cislo' => $_POST['rodneCislo'],
             'datum_narozeni' => $_POST['birthDate'],
             'adresa' => $_POST['address']
         ];
 
         return $this->repository->updateId('Uzivatel', $_SESSION['user_id'], $data);
+    }
+
+    public function updatePassword(): bool
+    {
+        if (!isset($_POST['pwd'])) {
+            return false;
+        }
+
+        $hashedPassword = password_hash($_POST['pwd'], PASSWORD_DEFAULT);
+        return $this->repository->updateId('Uzivatel', $_SESSION['user_id'], ['heslo' => $hashedPassword]);
     }
 }

@@ -23,6 +23,16 @@ try {
     echo "Retrieved Record:\n";
     print_r($retrievedRecord);
 
+    // Update the record
+    if (!empty($retrievedRecord)) {
+        $idToUpdate = $retrievedRecord[0]['ID'];
+        $repository->updateId('Uzivatel', $idToUpdate, ['jmeno' => 'Jane']);
+    }
+    // Retrieve the updated record to verify changes
+    $updatedRecord = $repository->getOneById('Uzivatel', ['ID', 'jmeno', 'prijmeni', 'email'], $idToUpdate);
+    echo "Updated Record:\n";
+    print_r($updatedRecord);
+
     // Delete the record by ID
     if (!empty($retrievedRecord)) {
         $idToDelete = $retrievedRecord[0]['ID'];
@@ -31,6 +41,7 @@ try {
     } else {
         echo "No record found to delete.\n";
     }
+
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage();
 }

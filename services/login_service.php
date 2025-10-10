@@ -34,6 +34,21 @@ class LoginService
         return false;
     }
 
+    public function deleteAccount(): bool
+    {
+        if (!isset($_SESSION['user_id'])) {
+            return false;
+        }
+
+        $userId = $_SESSION['user_id'];
+        return $this->deleteUserById($userId);
+    }
+
+    public function deleteUserById(int $id): bool
+    {
+        return $this->repository->deleteById('Uzivatel', $id);
+    }
+
     public function logout(): void
     {
         // remove only the specific session keys set by this app

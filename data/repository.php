@@ -93,7 +93,7 @@ class Repository
         foreach ($updated_data as $key => $value) {
             $update_string = $update_string . "$key='$value',";
         }
-        rtrim($update_string, ",");
+        $update_string = rtrim($update_string, ",");
         $sql = "UPDATE $table SET $update_string WHERE ID=$id";
         return $this->conn->query($sql) === TRUE;
     }
