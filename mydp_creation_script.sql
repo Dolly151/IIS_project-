@@ -40,6 +40,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`kurz` (
   `ID` INT NOT NULL AUTO_INCREMENT,
+  `status` BOOLEAN NOT NULL DEFAULT 0,
   `zkratka` VARCHAR(45) NULL,
   `nazev` VARCHAR(45) NULL,
   `popis` VARCHAR(45) NULL,
