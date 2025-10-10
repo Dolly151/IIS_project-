@@ -19,7 +19,7 @@ Class OverviewService
 
     public function getAllCoursesJoinGarant(): array
     {
-        $courses = $this->repository->getAll('Kurz');
+        $courses = $this->repository->getByCondition('Kurz', [], ['status' => 1]);
         foreach ($courses as &$course) {
             $garantId = $course['garant_ID'];
             if ($garantId === null) {
@@ -34,7 +34,10 @@ Class OverviewService
                 $course['garant_ID'] = $this->getDummyGarant();
             }
         }
-        unset($course);
+        
+        if (empty($courses)) {
+            $courses[] = $this->getDummyCourse();
+        }
         return $courses;
     }
     
@@ -43,6 +46,6 @@ Class OverviewService
     }
     
     private function getDummyCourse() : array {
-        return ['nazev' => 'Žádný kurz ještě nebyl vytvořen', 'popis' => '', 'garant_ID' => $this->getDummyGarant(), 'cena' => 0, 'limit' => 0];
+        return ['zkratka' => '', 'nazev' => 'Žádný kurz ještě nebyl vytvořen nebo schválen', 'popis' => '', 'garant_ID' => $this->getDummyGarant(), 'cena' => 0, 'limit' => 0];
     }
 }

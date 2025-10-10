@@ -12,5 +12,5 @@ enum PermissionLevel: int {
 enum RequestType: int {
     case GARANT_REQUEST = 0;
     case COURSE_REGISTRATION = 1;
-
+    case COURSE_APPROVAL = 2; // admin schvaluje kurzy
 }

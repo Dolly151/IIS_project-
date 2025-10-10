@@ -28,7 +28,9 @@
                             <p class="garant">
                                 Garant předmetu: <?php echo htmlspecialchars($course['garant_ID']['jmeno'].' '.$course['garant_ID']['prijmeni']);?>
                             </p>
-                            <a href="course_detail.php?id=<?php echo urlencode($course['ID']); ?>">Zobrazit detail</a>
+                            <?php if (isset($course['ID'])) { ?>
+                                <a href="course_detail.php?id=<?php echo urlencode($course['ID']); ?>">Zobrazit detail</a>
+                            <?php } ?>
                         </div>
                         
                     </div>
