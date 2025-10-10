@@ -3,6 +3,7 @@
     require_once('../services/permission_service.php');
     require_once('../services/profile_service.php');
 
+    PermissionService::requireRole(PermissionLevel::ANY);
     PermissionService::isUserThisId($_GET['id']);
 
     $profileService = new ProfileService();

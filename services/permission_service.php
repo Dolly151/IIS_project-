@@ -12,6 +12,19 @@ class PermissionService
         $this->repository = RepositoryFactory::create();
     }
 
+    public function refreshSessionRole(): void
+    {
+        if (!isset($_SESSION['user_id'])) {
+            return;
+        }
+
+        $userId = $_SESSION['user_id'];
+        $user = $this->repository->getOneById('Uzivatel', ['role'], $userId);
+        if ($user) {
+            $_SESSION['role'] = $user['role'];
+        }
+    }
+
     public static function requireRole(PermissionLevel $level): void
     {
         
@@ -70,15 +83,6 @@ class PermissionService
     public static function isUserGarant(): bool
     {
         return self::validatePermissionLevel(PermissionLevel::GARANT);
-    }
-
-    public static function getUserPermissionFromSession(): PermissionLevel
-    {
-        if (!isset($_SESSION['role'])) {
-            return PermissionLevel::GUEST;
-        }
-
-        return self::intToPermissionLevel($_SESSION['role']);
     }
 
     public function getUserPermissionLevelDB(int $userId): PermissionLevel

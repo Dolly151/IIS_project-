@@ -51,7 +51,6 @@ class LoginService
 
     public function logout(): void
     {
-        // remove only the specific session keys set by this app
         if (isset($_SESSION['user_id'])) {
             unset($_SESSION['user_id']);
         }
