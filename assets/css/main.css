@@ -15,6 +15,11 @@ i {
     width: 20px;
 }
 
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
 a:visited {
     text-decoration: none;
 }
@@ -43,14 +48,14 @@ main {
 
 .logo {
     max-width: 100px;
-    margin: auto;
 }
 
 .navbar {
     display: flex;
     flex-direction: column;
-    gap: 20px;
     border: none;
+    justify-content: space-between;
+    height: 100vh;
 }
 
 .navbar-nav {
@@ -86,4 +91,24 @@ main {
 .nav-item:hover {
     background-color: var(--color-secondary);
     cursor: pointer;
+}
+
+.btn {
+    background-color: var(--color-primary);
+    border: none;
+    transition: 0.3s ease;
+}
+
+.btn:hover {
+    background-color: var(--color-secondary);
+}
+
+input {
+    border-radius: 3px;
+}
+
+input:focus {
+  outline: none !important;    
+  box-shadow: none !important;   
+  border-color: var(--color-primary) !important;
 }

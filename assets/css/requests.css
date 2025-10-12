@@ -1,0 +1,14 @@
+.type {
+    font-weight: normal;
+    display: inline-block;
+    width: 180px;
+    text-decoration: none;
+    padding: 10px;
+    color: black;
+    border: 1px solid var(--color-gray);
+    text-align: center;
+}
+
+.type:hover {
+    font-weight: bold;
+}

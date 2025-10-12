@@ -1,7 +1,6 @@
 a {
     font-size: 14px;
     text-decoration: underline;
-    color: var(--color-primary);
 }
 
 form {
@@ -10,16 +9,6 @@ form {
     padding: 20px;
     background-color: var(--color-gray);
     border-radius: 3px;
-}
-
-input {
-    border-radius: 3px;
-}
-
-input:focus {
-  outline: none !important;    
-  box-shadow: none !important;   
-  border-color: var(--color-primary) !important;
 }
 
 label::after {
