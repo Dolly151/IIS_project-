@@ -36,14 +36,9 @@ class LoginService
         return false;
     }
 
-    public function deleteAccount(): bool
+    public function deleteAccount(int $id): bool
     {
-        if (!isset($_SESSION['user_id'])) {
-            return false;
-        }
-
-        $userId = $_SESSION['user_id'];
-        return $this->deleteUserById($userId);
+        return $this->deleteUserById($id);
     }
 
     public function deleteUserById(int $id): bool

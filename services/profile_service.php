@@ -13,7 +13,12 @@ class ProfileService
 
     public function getUserDetail(): array 
     {
-        $user = $this->repository->getOneById('Uzivatel', ['ID', 'login', 'jmeno', 'prijmeni', 'email', 'rodne_cislo', 'datum_narozeni', 'adresa', 'role'], $_SESSION['user_id']);        
+        $id = $_SESSION['user_id'];
+        if ($_SESSION['role'] == PermissionLevel::ADMIN->value && isset($_GET['id'])) {
+            $id = (int)$_GET['id'];
+        }
+
+        $user = $this->repository->getOneById('Uzivatel', ['ID', 'login', 'jmeno', 'prijmeni', 'email', 'rodne_cislo', 'datum_narozeni', 'adresa', 'role'], $id);        
         
         if ($_SESSION['role'] !== $user['role']) {
             $_SESSION['role'] = $user['role'];
