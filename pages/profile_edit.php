@@ -20,9 +20,10 @@
         </header>
 
         <main>
-            <div class="container login-container">
+            <div class="container login-container py-5">
                 <form action="actions/profile_edit_action.php" method="post">
-                    <h3 class="text-center">Úprava profilu</h3>
+                    <h1>Úprava profilu</h1>
+                    <hr>
                     <div class="form-group">
                         <label for="text" class="form-label">Křestní jméno</label>
                         <input type="text" class="form-control" value="<?php echo htmlspecialchars($userDetails['jmeno']); ?>" name="firstName">
@@ -45,8 +46,7 @@
                     </div>
                     <div class="form-group">
                         <label for="text" class="form-label">Datum narození</label>
-                        <!-- TODO add date-picker -->
-                        <input type="text" class="form-control" value="<?php echo htmlspecialchars($userDetails['datum_narozeni']); ?>" name="birthDate">
+                        <input type="date" class="form-control" value="<?php echo htmlspecialchars($userDetails['datum_narozeni']); ?>" name="birthDate">
                     </div>
                     <div class="form-group">
                         <label for="text" class="form-label">Adresa</label>
@@ -55,7 +55,7 @@
                     </div>
                     <div class="form-group text-center">
                         <button type="submit" class="btn btn-primary">Uložit</button>
-                        <a href="profile.php" class="text-center">Zpět na profil</a>
+                        <a href="profile.php" class="btn btn-primary">Zpět na profil</a>
                     </div>
                 </form> 
             </div>

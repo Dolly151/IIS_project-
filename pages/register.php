@@ -12,9 +12,10 @@
         </header>
 
         <main>
-            <div class="container login-container">
+            <div class="container login-container py-5">
                 <form action="actions/register_action.php" method="post">
-                    <h3 class="text-center">Registrace</h3>
+                    <h1>Registrace</h1>
+                    <hr>
                     <div class="form-group">
                         <label for="text" class="form-label">Login</label>
                         <input type="text" class="form-control" placeholder="Zadajte login" name="login">

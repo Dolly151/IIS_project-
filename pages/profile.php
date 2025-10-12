@@ -19,9 +19,10 @@
         </header>
 
         <main>
-            <div class="container profile d-flex flex-column h-50">
+            <div class="container profile d-flex flex-column h-auto py-5">
                 <h1>Profil uživatele</h1>
-                <div class="container details">
+                <hr>
+                <div class="container details w-100 h-100">
                     <?php foreach ($userDetails as $key => $value) { ?>
                         <div class="row mb-3">
                             <div class="col-sm-3">

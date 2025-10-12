@@ -7,7 +7,7 @@
     $service = new DetailService();
     $course = $service->getCourseDetail($id);
 
-    make_header('xxx', 'course_detail')
+    make_header('Detail předmětu', 'course_detail')
 ?>
 
 <body>
@@ -18,7 +18,8 @@
         </header>
 
         <main>
-            <h1 class="text-center">Detail předmětu <?php echo $id?></h1>
+            <h1>Detail předmětu <?php echo $id?></h1>
+            <hr>
             <div class="container p-3 h-50 detail">
                 <div class="row">
                     <div class="col-2">
@@ -57,7 +58,7 @@
                         <p>Limit</p>
                     </div>
                     <div class="col-10">
-                        <p>xxx</p>
+                        <p><?php echo htmlspecialchars($course['limit'])?></p>
                     </div>
                 </div>
             </div>
