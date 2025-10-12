@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../services/permission_service.php';
+
 ?>
 
 <nav class="navbar">
@@ -12,6 +13,7 @@ require_once __DIR__ . '/../services/permission_service.php';
                     Přehled
                 </a>
             </li>
+
             <?php if (PermissionService::isUserLoggedIn()) { ?>
             <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'profile.php') echo 'active' ?>">
                 <a href="profile.php">
@@ -20,13 +22,16 @@ require_once __DIR__ . '/../services/permission_service.php';
                 </a>
             </li>
             <?php } ?>
-            <!--
-            <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'schedule.php') echo 'active' ?>">
-                <a href="schedule.php">
-                    <i class="fa fa-television"></i> 
-                    Rozvrh
-                </a>
-            </li>-->
+
+            <?php if (PermissionService::isUserLoggedIn() && PermissionService::isUserStudent()) { ?>
+                <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'schedule.php') echo 'active' ?>">
+                    <a href="schedule.php">
+                        <i class="fa fa-television"></i> 
+                        Rozvrh
+                    </a>
+                </li>
+            <?php } ?>
+
             <?php if (!PermissionService::isUserLoggedIn()) { ?>
             <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'login.php') echo 'active' ?>">
                 <a href="login.php">
@@ -40,6 +45,26 @@ require_once __DIR__ . '/../services/permission_service.php';
                 <a href="requests.php">
                     <i class="fa fa-sign-in"></i> 
                     Žádosti
+                </a>
+            </li>
+            <?php } ?>
+
+            <!-- ADMIN can see and edit users-->
+            <?php if (PermissionService::isUserLoggedIn() && PermissionService::isUserAdmin()) { ?>
+            <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'users.php') echo 'active' ?>">
+                <a href="users.php">
+                    <i class="fa fa-users"></i> 
+                    Uživatele
+                </a>
+            </li>
+            <?php } ?>
+
+            <!-- ADMIN can see an edit rooms-->
+            <?php if (PermissionService::isUserLoggedIn() && PermissionService::isUserAdmin()) { ?>
+            <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'rooms.php') echo 'active' ?>">
+                <a href="rooms.php">
+                    <i class="fa fa-university"></i> 
+                    Místnosti
                 </a>
             </li>
             <?php } ?>

@@ -4,10 +4,15 @@
     require_once('../services/profile_service.php');
 
     PermissionService::requireRole(PermissionLevel::ANY);
-    PermissionService::isUserThisId($_GET['id']);
+
+    $id = $_GET['id'] ?? null;
+
+    if ($_SESSION['role'] != PermissionLevel::ADMIN->value) {
+        PermissionService::isUserThisId((int)$id);
+    }
 
     $profileService = new ProfileService();
-    $userDetails = $profileService->getUserDetail($_GET['id']);
+    $userDetails = $profileService->getUserDetail($id);
 
     make_header('WIS - úprava profilu', 'profile_edit')
 ?>                
@@ -51,7 +56,6 @@
                     <div class="form-group">
                         <label for="text" class="form-label">Adresa</label>
                         <input type="text" class="form-control" value="<?php echo htmlspecialchars($userDetails['adresa']); ?>" name="address">
-                    </div>
                     </div>
                     <div class="form-group text-center">
                         <button type="submit" class="btn btn-primary">Uložit</button>

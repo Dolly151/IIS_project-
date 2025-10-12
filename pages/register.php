@@ -42,8 +42,7 @@
                     </div>
                     <div class="form-group">
                         <label for="text" class="form-label">Datum narození</label>
-                        <!-- TODO add date-picker -->
-                        <input type="text" class="form-control" placeholder="Zadejte datum narození" name="birthDate">
+                        <input type="date" class="form-control" placeholder="Zadejte datum narození" name="birthDate">
                     </div>
                     <div class="form-group">
                         <label for="text" class="form-label">Adresa</label>
