@@ -24,11 +24,13 @@ class LoginService
     private function authenticateParams(string $login, string $password): bool
     {
         // ensure we also retrieve the role so we can set it in the session
-        $user = $this->repository->getByCondition('Uzivatel', ['ID', 'heslo', 'role'], ['login' => $login]);
+        $user = $this->repository->getByCondition('Uzivatel', ['ID', 'heslo', 'role', 'login'], ['login' => $login]);
         if ($user && password_verify($password, $user[0]['heslo'])) {
             $_SESSION['user_id'] = $user[0]['ID'];
             // role must exist in the selected columns
             $_SESSION['role'] = $user[0]['role'];
+            // for navigation login display
+            $_SESSION['login'] = $user[0]['login'];
             return true;
         }
         return false;
@@ -100,7 +102,6 @@ class LoginService
             'email' => $email,
             'role' => PermissionLevel::GUEST->value
         ];
-
         return $this->repository->insert('Uzivatel', $data);
     }
 
