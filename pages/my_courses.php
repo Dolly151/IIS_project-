@@ -4,7 +4,7 @@ require_once('../services/permission_service.php');
 require_once('../services/my_courses_service.php');
 
 if (!PermissionService::isUserLoggedIn() || !PermissionService::isUserStudent()) {
-    header('Location: login.php'); exit;
+    redirect('login.php?error=nejsi_student'); exit;
 }
 
 make_header('WIS - Moje kurzy', 'my_courses');
