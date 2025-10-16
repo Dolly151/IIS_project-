@@ -41,7 +41,7 @@ class RequestService
         }
 
         $userId = $_SESSION['user_id'];
-        $requests = $this->repository->getByCondition('Zadost', ['ID', 'datum', 'typ'], ['uzivatel_ID' => $userId]);
+        $requests = $this->repository->getByCondition('Zadost', ['ID', 'datum', 'typ', 'kurz_ID'], ['uzivatel_ID' => $userId]);
         foreach ($requests as &$request) {
             if ($request['typ'] == RequestType::COURSE_REGISTRATION->value) {
                 $course = $this->repository->getOneById('Kurz', ['nazev'], $request['kurz_ID']);
@@ -187,6 +187,12 @@ class RequestService
             'uzivatel_ID' => $request['uzivatel_ID'],
             'kurz_ID' => $request['kurz_ID'],
         ];
+
+        $user = $this->repository->getOneById('Uzivatel', ['role'], $request['uzivatel_ID']);
+        if ($user['role'] == PermissionLevel::GUEST->value) {
+            $permissionService = new PermissionService();
+            $permissionService->setUserPermissionLevel($request['uzivatel_ID'], PermissionLevel::STUDENT);
+        }
 
         $ret = $this->repository->insert('student_navstevuje_kurz', $data);
         if ($ret) {

@@ -71,11 +71,21 @@ require_once __DIR__ . '/../services/permission_service.php';
 
         </ul>
     </div>
+
+
+    
+    
     <div class="container-fluid justify-content-start">
+        <?php if (isset($_GET['success'])) { ?>
+            <p style="color: green; text-align: center; margin: 0;"><?php echo $_GET['success'];?></p>
+        <?php } ?>
+        <?php if (isset($_GET['error'])) { ?>
+            <p style="color: red; text-align: center; margin: 0;"><?php echo $_GET['error'];?></p>
+        <?php } ?>
         <?php if (PermissionService::isUserLoggedIn()) { ?>
             <i class="fa fa-user"></i>  
             <p class="text-white"><?php echo $_SESSION['login'];?></p>
-        <?php } ?>
-    </div>
+            <?php } ?>
+        </div>
     
 </nav>
