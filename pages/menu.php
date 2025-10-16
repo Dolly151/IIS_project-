@@ -78,7 +78,10 @@ require_once __DIR__ . '/../services/permission_service.php';
             <?php if (PermissionService::isUserLoggedIn() && PermissionService::isUserStudent()) { ?>
                 <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'my_courses.php')
                     echo 'active' ?>">
-                        <a href="my_courses.php"><i class="fa fa-book"></i> Moje kurzy</a>
+                        <a href="my_courses.php">
+                            <i class="fa fa-book"></i> 
+                            Moje kurzy
+                        </a>
                     </li>
             <?php } ?>
 
@@ -101,20 +104,20 @@ require_once __DIR__ . '/../services/permission_service.php';
                         </a>
                     </li>
             <?php } ?>
-
-
         </ul>
     </div>
-    <div class="container-fluid justify-content-start">
+    <div class="container-fluid justify-content-start gap-3">
         <?php if (isset($_GET['success'])) { ?>
-            <p style="color: green; text-align: center; margin: 0;"><?php echo $_GET['success'];?></p>
+            <p style="color: white; text-align: center; margin: 0;"><?php echo $_GET['success'];?></p>
         <?php } ?>
         <?php if (isset($_GET['error'])) { ?>
             <p style="color: red; text-align: center; margin: 0;"><?php echo $_GET['error'];?></p>
         <?php } ?>
         <?php if (PermissionService::isUserLoggedIn()) { ?>
-            <i class="fa fa-user"></i>
-            <p class="text-white"><?php echo $_SESSION['login']; ?></p>
+            <div class="container d-flex align-items-center">
+                <i class="fa fa-user"></i>
+                <p class="text-white m-0"><?php echo $_SESSION['login']; ?></p>
+            </div>
         <?php } ?>
     </div>
 

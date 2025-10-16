@@ -153,70 +153,72 @@ while ($cur < $end) {
 <div class="wrapper d-flex">
     <header><?php include __DIR__ . '/menu.php'; ?></header>
 
-    <main class="container py-4">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <a class="btn btn-outline-secondary" href="?week_offset=<?= $weekOffset-1 ?>">&laquo; Minulý týden</a>
-            <h2 class="m-0">Týden <?= $monday->format('j.n.Y') ?> – <?= $sunday->format('j.n.Y') ?></h2>
-            <div class="d-flex gap-2">
-                <a class="btn btn-outline-primary" href="?week_offset=0">Tento týden</a>
-                <a class="btn btn-outline-secondary" href="?week_offset=<?= $weekOffset+1 ?>">Příští týden &raquo;</a>
+    <main>
+        <div class="container py-5">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <a class="btn btn-outline-secondary text-white" href="?week_offset=<?= $weekOffset-1 ?>">&laquo; Minulý týden</a>
+                <h2 class="m-0">Týden <?= $monday->format('j.n.Y') ?> – <?= $sunday->format('j.n.Y') ?></h2>
+                <div class="d-flex gap-2">
+                    <a class="btn btn-outline-primary text-white" href="?week_offset=0">Tento týden</a>
+                    <a class="btn btn-outline-secondary text-white" href="?week_offset=<?= $weekOffset+1 ?>">Příští týden &raquo;</a>
+                </div>
             </div>
-        </div>
 
-        <!-- HLAVIČKA MŘÍŽKY -->
-        <div class="rozvrh-head d-none d-md-grid">
-            <div class="time-col-head"></div>
-            <?php foreach ([1,2,3,4,5] as $d): ?>
-                <div class="day-col-head"><?= htmlspecialchars($czDays[$d]) ?></div>
-            <?php endforeach; ?>
-        </div>
-
-        <div class="rozvrh-grid">
-            <!-- levá časová osa -->
-            <div class="time-col">
-                <?php foreach ($timeTicks as $t): ?>
-                    <div class="time-cell"><span><?= htmlspecialchars($t) ?></span></div>
+            <!-- HLAVIČKA MŘÍŽKY -->
+            <div class="rozvrh-head d-none d-md-grid">
+                <div class="time-col-head"></div>
+                <?php foreach ([1,2,3,4,5] as $d): ?>
+                    <div class="day-col-head"><?= htmlspecialchars($czDays[$d]) ?></div>
                 <?php endforeach; ?>
             </div>
 
-            <!-- sloupce dní Po–Pá -->
-            <?php foreach ([1,2,3,4,5] as $d): ?>
-                <div class="day-col">
-                    <!-- horizontální linky -->
-                    <?php foreach ($timeTicks as $_): ?>
-                        <div class="day-slot"></div>
-                    <?php endforeach; ?>
-
-                    <!-- bloky událostí -->
-                    <?php foreach ($byDay[$d] as $blk): ?>
-                        <?php
-                            // šířka a offset v % v rámci jednoho dne
-                            $wPct = 100 / max(1, (int)$blk['cols']);
-                            $lPct = $wPct * (int)$blk['col'];
-                            // mezery 6px zleva/6px zprava (souhlasí s CSS paddingem sloupce)
-                            $inlineStyle = sprintf(
-                                'top: %.4f%%; height: %.4f%%; left: calc(%.4f%% + 6px); width: calc(%.4f%% - 12px);',
-                                $blk['top_pct'],
-                                $blk['height_pct'],
-                                $lPct,
-                                $wPct
-                            );
-                        ?>
-                        <a href="course_detail.php?id=<?= (int)$blk['course_id'] ?>"
-                           class="event-block"
-                           style="<?= $inlineStyle ?>">
-                            <div class="code"><?= htmlspecialchars($blk['course_code']) ?></div>
-                            <div class="name text-truncate"><?= htmlspecialchars($blk['course_name']) ?></div>
-                            <div class="meta"><?= $blk['start']->format('H:i') ?>–<?= $blk['end']->format('H:i') ?> · <?= htmlspecialchars($blk['type']) ?></div>
-                        </a>
+            <div class="rozvrh-grid">
+                <!-- levá časová osa -->
+                <div class="time-col">
+                    <?php foreach ($timeTicks as $t): ?>
+                        <div class="time-cell"><span><?= htmlspecialchars($t) ?></span></div>
                     <?php endforeach; ?>
                 </div>
-            <?php endforeach; ?>
-        </div>
 
-        <?php if (empty($items)): ?>
-            <div class="alert alert-info mt-3">Pro tento týden zatím nemáš v rozvrhu nic.</div>
-        <?php endif; ?>
+                <!-- sloupce dní Po–Pá -->
+                <?php foreach ([1,2,3,4,5] as $d): ?>
+                    <div class="day-col">
+                        <!-- horizontální linky -->
+                        <?php foreach ($timeTicks as $_): ?>
+                            <div class="day-slot"></div>
+                        <?php endforeach; ?>
+
+                        <!-- bloky událostí -->
+                        <?php foreach ($byDay[$d] as $blk): ?>
+                            <?php
+                                // šířka a offset v % v rámci jednoho dne
+                                $wPct = 100 / max(1, (int)$blk['cols']);
+                                $lPct = $wPct * (int)$blk['col'];
+                                // mezery 6px zleva/6px zprava (souhlasí s CSS paddingem sloupce)
+                                $inlineStyle = sprintf(
+                                    'top: %.4f%%; height: %.4f%%; left: calc(%.4f%% + 6px); width: calc(%.4f%% - 12px);',
+                                    $blk['top_pct'],
+                                    $blk['height_pct'],
+                                    $lPct,
+                                    $wPct
+                                );
+                            ?>
+                            <a href="course_detail.php?id=<?= (int)$blk['course_id'] ?>"
+                            class="event-block"
+                            style="<?= $inlineStyle ?>">
+                                <div class="code"><?= htmlspecialchars($blk['course_code']) ?></div>
+                                <div class="name text-truncate"><?= htmlspecialchars($blk['course_name']) ?></div>
+                                <div class="meta"><?= $blk['start']->format('H:i') ?>–<?= $blk['end']->format('H:i') ?> · <?= htmlspecialchars($blk['type']) ?></div>
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+
+            <?php if (empty($items)): ?>
+                <div class="alert alert-info mt-3" style="background-color: var(--color-secondary); color: white; border: none;">Pro tento týden zatím nemáš v rozvrhu nic.</div>
+            <?php endif; ?>
+        </div>
     </main>
 </div>
 </body>

@@ -18,53 +18,55 @@
         </header>
 
         <main>
-            <h1>Detail předmětu <?php echo $id?></h1>
-            <hr>
-            <div class="container p-3 h-50 detail">
-                <div class="row">
-                    <div class="col-2">
-                        <p>Název</p>
+            <div class="container d-flex flex-column py-5">
+                <h1>Detail předmětu <?php echo "'". $course['nazev'] . "'"?></h1>
+                <hr>
+                <div class="container h-50 detail">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p>Název</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p><?php echo htmlspecialchars($course['nazev'])?></p>
+                        </div>
                     </div>
-                    <div class="col-10">
-                        <p><?php echo htmlspecialchars($course['nazev'])?></p>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p>Garant</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p><?php echo htmlspecialchars($course['garant']['jmeno']. ' '. $course['garant']['prijmeni'])?></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p>Popis</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p><?php echo htmlspecialchars($course['popis'])?></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p>Cena</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p><?php echo htmlspecialchars($course['cena'])?></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p>Limit</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p><?php echo htmlspecialchars($course['limit'])?></p>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-2">
-                        <p>Garant</p>
-                    </div>
-                    <div class="col-10">
-                        <p><?php echo htmlspecialchars($course['garant']['jmeno']. ' '. $course['garant']['prijmeni'])?></p>
-                    </div>
+                <?php if (PermissionService::isUserLoggedIn() && PermissionService::isUserStudent()) { ?>
+                <div class="container text-center">
+                    <a href="actions/course_register_action.php?id=<?php echo urlencode($id); ?>" class="btn btn-primary">Zapsat se do kurzu</a>
                 </div>
-                <div class="row">
-                    <div class="col-2">
-                        <p>Popis</p>
-                    </div>
-                    <div class="col-10">
-                        <p><?php echo htmlspecialchars($course['popis'])?></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-2">
-                        <p>Cena</p>
-                    </div>
-                    <div class="col-10">
-                        <p><?php echo htmlspecialchars($course['cena'])?></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-2">
-                        <p>Limit</p>
-                    </div>
-                    <div class="col-10">
-                        <p><?php echo htmlspecialchars($course['limit'])?></p>
-                    </div>
-                </div>
-            </div>
-            <?php if (PermissionService::isUserLoggedIn()) { ?>
-            <div class="container text-center">
-                <a href="actions/course_register_action.php?id=<?php echo urlencode($id); ?>" class="btn btn-primary">Zapsat se do kurzu</a>
             </div>
             <?php } ?>
         </main>

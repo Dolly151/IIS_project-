@@ -17,12 +17,12 @@
         </header>
 
         <main>
-            <?php if (PermissionService::isUserLoggedIn()) { ?>
-            <div class="container text-center">
-                <a href="course_create.php" class="btn btn-primary">vytvořit kurz</a>
-            </div>
-            <?php } ?>
-            <div class="container d-flex justify-content-center h-100 align-items-center">
+            <div class="container d-flex flex-column py-5 gap-3">
+                <?php if (PermissionService::isUserLoggedIn() && PermissionService::isUserAdmin()) { ?>
+                    <div class="container p-0">
+                        <a href="course_create.php" class="btn btn-primary">+ Vytvořit kurz</a>
+                    </div>
+                <?php } ?>
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 gap-3">
                     <?php foreach ($courses as $course) :?>
                     <div class="col d-flex flex-column gap-4 w-auto h-auto justify-content-center p-3">
