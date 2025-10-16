@@ -1,5 +1,13 @@
 <?php 
     require_once('../common/common.php');
+    require_once('../services/permission_service.php');
+    require_once('../services/room_service.php');
+
+    PermissionService::requireRole(PermissionLevel::ADMIN);
+
+    $room_service = new RoomService();
+
+    $rooms = $room_service->getAllRooms();
 
     make_header('WIS - místnosti', 'requests')
 ?>                
