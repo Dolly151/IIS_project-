@@ -24,7 +24,10 @@ class RequestService
         if ($role == PermissionLevel::ADMIN->value) {
             $garantRequests = $this->getGarantRequests();
             $courseApprovalRequests = $this->getCourseAprovalRequests();
-            return array_merge($garantRequests, $courseApprovalRequests);
+            $courseRegistrationRequests = $this->getCourseRegistrationRequests();
+            $ret = array_merge($garantRequests, $courseApprovalRequests);
+            $ret = array_merge($ret, $courseRegistrationRequests);
+            return $ret;
         }
         else if ($role == PermissionLevel::GARANT->value) {
             return $this->getCourseRegistrationRequests();

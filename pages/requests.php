@@ -35,7 +35,7 @@
             $view = $_GET['view'] ?? 'my';
             if ($view == 'approve') {
                 $html .= "<td><a href='actions/request_aprove_action.php?id=" . urlencode($req['ID']) . "' class='btn btn-success'>Schválit</a></td>";
-                $html .= "<td><a href='actions/request_reject_action.php?id=" . urlencode($req['ID']) . "' class='btn btn-danger'>Zamítnout</a></td>";
+                $html .= "<td><a href='actions/request_deny_action.php?id=" . urlencode($req['ID']) . "' class='btn btn-danger'>Zamítnout</a></td>";
             }
             
             $html .= "</tr>";

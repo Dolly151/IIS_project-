@@ -32,6 +32,10 @@ class PermissionService
             echo "<h1>Access forbidden via PermissionService</h1>";
             exit();
         }
+
+        if ($_SESSION['role'] == PermissionLevel::ADMIN->value) {
+            return;
+        }
         
         if ($level == PermissionLevel::ANY) {
             return;
