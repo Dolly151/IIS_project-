@@ -11,6 +11,11 @@ class Repository
         
     }
 
+    public function getLastInsertId(): int
+    {
+        return $this->conn->insert_id;
+    }
+
     private function getSelectorString(array $selector) : string
     {
         if ($selector == []) {

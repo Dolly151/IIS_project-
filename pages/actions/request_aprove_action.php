@@ -12,9 +12,9 @@ $requestService = new RequestService();
 
 if (isset($_GET['id'])) {
     if ($requestService->approveRequest($_GET['id'])) {
-        redirect("../requests.php?success=Žádost byla úspěšně schválena");
+        redirect("../requests.php?success=Žádost byla úspěšně schválena&view=approve");
         exit();
     }
 }
-redirect("../requests.php?error=Nepodařilo se schválit žádost");
+redirect("../requests.php?error=Nepodařilo se schválit žádost&view=approve");
 exit();

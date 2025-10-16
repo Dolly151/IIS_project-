@@ -4,23 +4,23 @@
     require_once '../services/request_service.php';
 
     PermissionService::requireRole(PermissionLevel::ANY);
-
+    
     $request_service = new RequestService();
     $requests_to_approve = $request_service->getRoleRelevantRequests();
     $my_requests = $request_service->getMyRequests();
-
+    
     function renderRequestsTable($requests)
     {
         if (empty($requests)) {
             return "<p>Žádné žádosti k zobrazení.</p>";
         }
-
+        
         $html = "<table class='table'><thead><tr>";
         foreach (array_keys($requests[0]) as $col) {
             $html .= "<th>$col</th>";
         }
         $html .= "</tr></thead><tbody>";
-
+        
         foreach ($requests as $req){
             $html .= "<tr>";
             foreach ($req as $val) {
@@ -31,15 +31,22 @@
                     $html .= "<td>$val</td>";
                 }
             }
+
+            $view = $_GET['view'] ?? 'my';
+            if ($view == 'approve') {
+                $html .= "<td><a href='actions/request_aprove_action.php?id=" . urlencode($req['ID']) . "' class='btn btn-success'>Schválit</a></td>";
+                $html .= "<td><a href='actions/request_reject_action.php?id=" . urlencode($req['ID']) . "' class='btn btn-danger'>Zamítnout</a></td>";
+            }
+            
             $html .= "</tr>";
         }
         $html .= "</tbody></table>";
         return $html;
     }
-
+    
     make_header('WIS - Žádosti', 'requests');
-
     $view = $_GET['view'] ?? 'my';
+    
 ?>
 
 <body>

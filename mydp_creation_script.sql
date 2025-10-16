@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`zadost` (
   `typ` INT NULL,
   `popis` VARCHAR(45) NULL,
   `uzivatel_ID` INT NOT NULL,
-  `kurz_ID` INT NOT NULL,
+  `kurz_ID` INT NULL,
   PRIMARY KEY (`ID`),
   CONSTRAINT `fk_zadost_uzivatel`
     FOREIGN KEY (`uzivatel_ID`)

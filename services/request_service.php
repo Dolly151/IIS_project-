@@ -21,12 +21,12 @@ class RequestService
 
         $role = $_SESSION['role'];
 
-        if ($role === PermissionLevel::GARANT->value) {
+        if ($role == PermissionLevel::ADMIN->value) {
             $garantRequests = $this->getGarantRequests();
             $courseApprovalRequests = $this->getCourseAprovalRequests();
             return array_merge($garantRequests, $courseApprovalRequests);
         }
-        else if ($role === PermissionLevel::STUDENT->value) {
+        else if ($role == PermissionLevel::GARANT->value) {
             return $this->getCourseRegistrationRequests();
         }
         else {

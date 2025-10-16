@@ -33,11 +33,11 @@ class PermissionService
             exit();
         }
         
-        if ($level === PermissionLevel::ANY) {
+        if ($level == PermissionLevel::ANY) {
             return;
         }
 
-        if ($_SESSION['role'] !== $level->value) {
+        if ($_SESSION['role'] != $level->value) {
             echo "<h1>Access forbidden via PermissionService</h1>";
             exit();
         }
