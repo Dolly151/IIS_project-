@@ -75,7 +75,7 @@ require_once __DIR__ . '/../services/permission_service.php';
                     </li>
             <?php } ?>
 
-            <?php if (PermissionService::isUserLoggedIn()) { ?>
+            <?php if (PermissionService::isUserLoggedIn() && PermissionService::isUserStudent()) { ?>
                 <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'my_courses.php')
                     echo 'active' ?>">
                         <a href="my_courses.php"><i class="fa fa-book"></i> Moje kurzy</a>
