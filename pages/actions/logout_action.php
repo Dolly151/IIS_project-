@@ -5,5 +5,5 @@
     $loginService = new LoginService();
 
     $loginService->logout();
-    redirect("../overview.php?success=Byli jste úspěšně odhlášeni");
+    redirect("../login.php?success=Byli jste úspěšně odhlášeni");
     exit();

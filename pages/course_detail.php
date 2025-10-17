@@ -63,7 +63,7 @@
                         </div>
                     </div>
                 </div>
-                <?php if (PermissionService::isUserLoggedIn() && PermissionService::isUserStudent()) { ?>
+                <?php if (PermissionService::isUserLoggedIn()) { ?>
                 <div class="container text-center">
                     <a href="actions/course_register_action.php?id=<?php echo urlencode($id); ?>" class="btn btn-primary">Zapsat se do kurzu</a>
                 </div>

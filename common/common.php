@@ -1,7 +1,7 @@
 <?php 
     session_start();
-    
-    function make_header($title, $file) { ?>
+
+    function make_header($title, $file, $additional_css = '') { ?>
         <!DOCTYPE html>
         <html lang="en">    
         <head>
@@ -11,6 +11,10 @@
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
             <link rel="stylesheet" href="../assets/css/main.css">
             <link rel="stylesheet" href="../assets/css/<?php echo $file?>.css">
+            <?php if ($additional_css != '') {
+                echo $additional_css;
+            } ?>
+
             <title><?php echo $title;?></title>
         </head>
         <body>

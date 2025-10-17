@@ -33,6 +33,9 @@ class CourseCreationService
             'popis' => $_POST['popis'],
             '`limit`' => $_POST['limit'],
             'cena' => $_POST['cena'],
+            'den' => $_POST['den'],
+            'vyuka_od' => $_POST['vyuka_od'],
+            'vyuka_do' => $_POST['vyuka_do'],
             'garant_ID' => $id
         ];
 
