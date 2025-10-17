@@ -68,10 +68,10 @@ class Repository
         $condition_string = "";
         if (!empty($conditions)) {
             foreach ($conditions as $key => $value) {
-                $condition_string = $condition_string . "$key='$value'";
+                $condition_string = $condition_string . "$key='$value' AND ";
             }
 
-            $sql = "SELECT " . $this->getSelectorString($selector) . " FROM $table WHERE " . $condition_string;
+            $sql = "SELECT " . $this->getSelectorString($selector) . " FROM $table WHERE " . rtrim($condition_string, " AND ");
             $result = $this->conn->query($sql);
             if ($result->num_rows > 0) {
                 return $result->fetch_all(MYSQLI_ASSOC);

@@ -24,6 +24,12 @@ class DetailService
         
         return $course;
     }
+
+    public function isUserAllreadyRegisteredToCourse(int $courseId, int $userId): bool
+    {
+        return $this->repository->exists('student_navstevuje_kurz', ['kurz_ID' => $courseId, 'uzivatel_ID' => $userId]);
+    }
+
 }
 
 ?>

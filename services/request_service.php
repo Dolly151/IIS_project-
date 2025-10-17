@@ -99,6 +99,11 @@ class RequestService
 
     public function createCourseRegistrationRequest(int $courseId): bool
     {
+        if ($this->repository->exists('student_navstevuje_kurz', ['uzivatel_ID' => $_SESSION['user_id'], 'kurz_ID' => $courseId]) || 
+            $this->repository->exists('Zadost', ['uzivatel_ID' => $_SESSION['user_id'], 'kurz_ID' => $courseId, 'typ' => RequestType::COURSE_REGISTRATION->value])) {
+            return false;
+        }
+
         $data = [
             'datum' => date('Y-m-d'),
             'typ' => RequestType::COURSE_REGISTRATION->value,
