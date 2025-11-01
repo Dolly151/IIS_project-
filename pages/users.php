@@ -46,7 +46,7 @@
                                 </a>
                                 <form action="actions/delete_user_action.php" method="post" style="display:inline">
                                     <input type="hidden" name="id" value="<?= $user['ID'] ?>">
-                                    <button type="submit" class="btn btn-sm">
+                                    <button type="submit" class="btn btn-sm" onclick="return confirm('Opravdu chcete smazat tohto uživatele?')">
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </form>
