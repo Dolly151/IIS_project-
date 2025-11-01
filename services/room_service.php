@@ -20,10 +20,10 @@ class RoomService
     {
         
         $data = [
-            'nazev' => $_GET['nazev'],
-            'kapacita' => $_GET['kapacita'],
-            'typ' => $_GET['typ'],
-            'popis' => $_GET['popis']
+            'nazev' => $_POST['nazev'],
+            'kapacita' => $_POST['kapacita'],
+            'typ' => $_POST['typ'],
+            'popis' => $_POST['popis']
         ];
 
         return $this->repository->insert('Mistnost', $data);
@@ -37,10 +37,10 @@ class RoomService
     public function updateRoom(int $id): bool
     {
         $data = [
-            'nazev' => $_GET['nazev'],
-            'kapacita' => $_GET['kapacita'],
-            'typ' => $_GET['typ'],
-            'popis' => $_GET['popis']
+            'nazev' => $_POST['nazev'],
+            'kapacita' => $_POST['kapacita'],
+            'typ' => $_POST['typ'],
+            'popis' => $_POST['popis']
         ];
 
         return $this->repository->updateId('Mistnost', $id, $data);
@@ -58,5 +58,9 @@ class RoomService
         return $room;
     }
 
+    public function isEverythingSetForNewRoom(): bool
+    {
+        return isset($_POST['nazev']) && isset($_POST['typ']) && isset($_POST['popis']) && isset($_POST['kapacita']);    
+    }
     
 }

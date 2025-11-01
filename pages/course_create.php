@@ -36,6 +36,7 @@
                         <label for="text" class="form-label">limit</label>
                         <input type="text" class="form-control" placeholder="Zadejte limit" name="limit">
                     </div>
+<<<<<<< HEAD
                     <div class="form-group">
                         <label for="text" class="form-label">Vyberte den: </label>
                         <select id="den" class="form-control" name="den">
@@ -55,6 +56,9 @@
                         <input type="time" class="form-control" placeholder="Zadejte vyuku do" name="vyuka_do">
                     </div>
                     <div class="form-group text-center">
+=======
+                    <div class="form-group text-center my-5">
+>>>>>>> a370625 (feat: add admin rooms managment; add action to add, edit and delete room; update styles; update registration redirect for admin)
                         <button type="submit" class="btn btn-primary">Vytvořit kurz</button>
                     </div>
                 </form> 

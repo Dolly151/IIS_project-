@@ -11,5 +11,10 @@
     }    
 
     $loginService->register();
-    redirect("../login.php?success=Byli jste úspěšně zaregistrováni, nyní se můžete přihlásit");
+    if ($_SESSION['role'] == PermissionLevel::ADMIN->value) {
+        redirect("../users.php?success=Uživatel byl úspešne zaregistrován");
+    }   
+    else {
+        redirect("../login.php?success=Byli jste úspěšně zaregistrováni, nyní se můžete přihlásit");
+    }
     exit();

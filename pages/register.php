@@ -49,7 +49,7 @@
                         <input type="text" class="form-control" placeholder="Zadejte adresu" name="address">
                     </div>
                     </div>
-                    <div class="form-group text-center">
+                    <div class="form-group text-center my-5">
                         <button type="submit" class="btn btn-primary">Registrovat</button>
                     </div>
                 </form> 

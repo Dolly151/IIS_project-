@@ -57,7 +57,7 @@
                         <label for="text" class="form-label">Adresa</label>
                         <input type="text" class="form-control" value="<?php echo htmlspecialchars($userDetails['adresa']); ?>" name="address">
                     </div>
-                    <div class="form-group text-center">
+                    <div class="form-group text-center my-5">
                         <button type="submit" class="btn btn-primary">Uložit</button>
                         <a href="profile.php" class="btn btn-primary">Zpět na profil</a>
                     </div>

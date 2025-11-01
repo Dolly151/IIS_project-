@@ -53,4 +53,17 @@ class MyCoursesService
 
         return $out;
     }
+
+    public function isStudentInCourse($studentId, $courseId):bool 
+    {
+        $studentCourses = $this->getStudentCourses($studentId);
+        foreach($studentCourses as $course)
+        {
+            if ((int)$course['id'] === (int)$courseId) 
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

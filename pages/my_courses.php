@@ -55,11 +55,11 @@ $courses   = $service->getStudentCourses($studentId);
                                     <?php endif; ?>
 
                                     <div class="mt-auto d-flex gap-2 flex-wrap">
-                                        <a href="course_detail.php?id=<?= (int)$c['id'] ?>" class="btn btn-sm btn-outline-primary">
+                                        <a href="course_detail.php?id=<?= (int)$c['id'] ?>" class="btn btn-sm btn-outline-primary" style="color: white">
                                             <i class="fa fa-info-circle"></i> Detail
                                         </a>
                                         <!-- připravené pro budoucí Rozvrh/Hodnocení -->
-                                        <a href="course_grades.php?course_id=<?= (int)$c['id'] ?>" class="btn btn-sm btn-outline-success">
+                                        <a href="course_grades.php?course_id=<?= (int)$c['id'] ?>" class="btn btn-sm btn-outline-success" style="color: white">
                                             <i class="fa fa-star"></i> Moje hodnocení
                                         </a>
                                     </div>
