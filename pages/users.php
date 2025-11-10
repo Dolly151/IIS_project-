@@ -6,7 +6,7 @@
     $repository = RepositoryFactory::create();
     $permissionService = new PermissionService();
 
-    $users = $repository->getAll('uzivatel');
+    $users = $repository->getAll('Uzivatel');
     $id = $_GET['id'] ?? null;
     
     make_header('WIS - uživatele', 'requests');
