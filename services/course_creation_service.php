@@ -17,13 +17,24 @@ class CourseCreationService
     }
 
     public function isEverythingSetForCreate(): bool
-    {
-        return isset($_POST['zkratka']) && isset($_POST['nazev']) && isset($_POST['popis']) && isset($_POST['limit']) && isset($_POST['cena']);
-    }
+{
+    return isset(
+        $_POST['zkratka'], $_POST['nazev'], $_POST['popis'],
+        $_POST['limit'], $_POST['cena'],
+        $_POST['den'], $_POST['vyuka_od'], $_POST['vyuka_do'],
+        $_POST['room_id']              
+    );
+}
+
 
     public function createCourse(): int
     {
-        // PermissionService::requireRole(PermissionLevel::ADMIN);
+        // povol admina i garanta
+        $role = $_SESSION['role'] ?? null;
+        if ($role !== PermissionLevel::ADMIN->value && $role !== PermissionLevel::GARANT->value) {
+            http_response_code(403);
+            return -1;
+        }
 
         $id = $_SESSION['user_id'];
 
@@ -36,7 +47,8 @@ class CourseCreationService
             'den' => $_POST['den'],
             'vyuka_od' => $_POST['vyuka_od'],
             'vyuka_do' => $_POST['vyuka_do'],
-            'garant_ID' => $id
+            'garant_ID' => $id,
+            'mistnost_ID' => (int)$_POST['room_id']
         ];
 
         $ret = $this->repository->insert('Kurz', $data);
@@ -46,7 +58,7 @@ class CourseCreationService
             if ($_SESSION['role'] == PermissionLevel::ADMIN->value) {
 
                 // do nothing
-                
+
             } else if ($_SESSION['role'] != PermissionLevel::GARANT->value) {
                 $this->requestService->createGarantRequest();
             }

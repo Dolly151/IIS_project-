@@ -27,16 +27,24 @@
     }*/
 
 
-    function redirect($dest)
-    {
-        $script = $_SERVER["PHP_SELF"];
-        if (strpos($dest,'/') === 0) {
-            $path = $dest;
-        } else {
-            $path = substr($script, 0, strrpos($script, '/')) . "/$dest";
+    function redirect(string $path): never {
+        // 1) plná URL? pošli ji rovnou
+        if (preg_match('~^https?://~i', $path)) {
+            header("Location: $path", true, 302);
+            exit;
         }
-        $name = $_SERVER["SERVER_NAME"];
-        header("HTTP/1.1 301 Moved Permanently");
-        header("Location: http://$name$path");
+    
+        // 2) zajisti kořenovou cestu (začíná na /)
+        if ($path === '' || $path[0] !== '/') {
+            $path = '/' . ltrim($path, '/');
+        }
+    
+        // 3) schéma + host (HTTP_HOST obsahuje i port, když je nestandardní)
+        $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+        $host   = $_SERVER['HTTP_HOST'] ?? ($_SERVER['SERVER_NAME'] ?? '127.0.0.1:8000');
+    
+        header("Location: {$scheme}://{$host}{$path}", true, 302); // 302 = dočasný redirect
+        exit;
     }
+    
 ?>

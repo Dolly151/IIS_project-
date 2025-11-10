@@ -1,8 +1,16 @@
-<?php 
-    require_once('../common/common.php');
+<?php
+require_once('../common/common.php');
+require_once('../services/room_service.php');
 
-    make_header('WIS - vytvoření kurzu', 'course_create');
-?>                
+// ⬇️ DOPLNIT: načtení místností
+$roomService = new RoomService();
+// pokud máš metodu getAll(), použij ji; jinak getAllRooms()
+$rooms = method_exists($roomService, 'getAll')
+    ? $roomService->getAll()
+    : $roomService->getAllRooms();
+
+make_header('WIS - vytvoření kurzu', 'course_create');
+?>
 
 <body>
     <div class="wrapper d-flex">
@@ -13,32 +21,39 @@
 
         <main>
             <div class="container login-container py-5">
+                <!-- ⬇️ tlačítko musí být uvnitř FORM a mít jen jeden </form> -->
                 <form action="actions/course_create_action.php" method="post">
                     <h1>Vytvoření kurzu</h1>
                     <hr>
+
                     <div class="form-group">
-                        <label for="text" class="form-label">Zkratka</label>
-                        <input type="text" class="form-control" placeholder="Zadejte zkratku" name="zkratka">
+                        <label class="form-label">Zkratka</label>
+                        <input type="text" class="form-control" placeholder="Zadejte zkratku" name="zkratka" required>
                     </div>
+
                     <div class="form-group">
-                        <label for="text" class="form-label">název</label>
-                        <input type="text" class="form-control" placeholder="Zadejte název" name="nazev">
+                        <label class="form-label">Název</label>
+                        <input type="text" class="form-control" placeholder="Zadejte název" name="nazev" required>
                     </div>
+
                     <div class="form-group">
-                        <label for="text" class="form-label">popis</label>
-                        <input type="text" class="form-control" placeholder="Zadejte popis" name="popis">
+                        <label class="form-label">Popis</label>
+                        <input type="text" class="form-control" placeholder="Zadejte popis" name="popis" required>
                     </div>
+
                     <div class="form-group">
-                        <label for="text" class="form-label">cena</label>
-                        <input type="text" class="form-control" placeholder="Zadejte cenu" name="cena">
+                        <label class="form-label">Cena</label>
+                        <input type="number" min="0" class="form-control" placeholder="Zadejte cenu" name="cena" required>
                     </div>
+
                     <div class="form-group">
-                        <label for="text" class="form-label">limit</label>
-                        <input type="text" class="form-control" placeholder="Zadejte limit" name="limit">
+                        <label class="form-label">Limit</label>
+                        <input type="number" min="1" class="form-control" placeholder="Zadejte limit" name="limit" required>
                     </div>
+
                     <div class="form-group">
-                        <label for="text" class="form-label">Vyberte den: </label>
-                        <select id="den" class="form-control" name="den">
+                        <label class="form-label">Vyberte den:</label>
+                        <select id="den" class="form-control" name="den" required>
                             <option value="1">Pondělí</option>
                             <option value="2">Úterý</option>
                             <option value="3">Středa</option>
@@ -46,21 +61,39 @@
                             <option value="5">Pátek</option>
                         </select>
                     </div>
+
                     <div class="form-group">
-                        <label for="text" class="form-label">vyuka od</label>
-                        <input type="time" class="form-control" placeholder="Zadejte vyuku od" name="vyuka_od">
+                        <label class="form-label">Výuka od</label>
+                        <input type="time" class="form-control" name="vyuka_od" required>
                     </div>
+
                     <div class="form-group">
-                        <label for="text" class="form-label">vyuka do</label>
-                        <input type="time" class="form-control" placeholder="Zadejte vyuku do" name="vyuka_do">
+                        <label class="form-label">Výuka do</label>
+                        <input type="time" class="form-control" name="vyuka_do" required>
                     </div>
-                    <div class="form-group text-center">
+
+                    <!-- ⬇️ výběr místnosti (pozor na velké 'ID' podle tvé DB) -->
+                    <div class="form-group">
+                        <label class="form-label">Místnost</label>
+                        <select id="room_id" name="room_id" class="form-control" required>
+                            <option value="">— vyberte —</option>
+                            <?php foreach ($rooms as $r): ?>
+                                <option value="<?= (int)$r['ID'] ?>">
+                                    <?= htmlspecialchars($r['nazev']) ?>
+                                    <?php if (!empty($r['kapacita'])): ?>
+                                        (kap. <?= (int)$r['kapacita'] ?>)
+                                    <?php endif; ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group text-center mt-3">
                         <button type="submit" class="btn btn-primary">Vytvořit kurz</button>
                     </div>
-                </form> 
+                </form>
             </div>
         </main>
     </div>
-
 </body>
-</html>   
+</html>

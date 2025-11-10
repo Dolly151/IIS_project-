@@ -2,6 +2,8 @@
     require_once('../common/common.php');
     require_once('../services/detail_service.php');
     require_once('../services/my_courses_service.php');
+    require_once('../services/permission_service.php');
+    require_once('../services/grades_service.php');
 
     // bezpečně převezmeme id kurzu
     $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
@@ -10,8 +12,10 @@
         exit;
     }
 
-    $service = new DetailService();
+    $service          = new DetailService();
     $myCoursesService = new MyCoursesService();
+    $gradesService    = new GradesService();
+
     $course = $service->getCourseDetail($id);
 
     // když se kurz nenašel
@@ -75,7 +79,7 @@
                                 <p>
                                     <?php
                                         $den = (int)$course['den'];
-                                        echo htmlspecialchars(($dny[$den] ?? $den) . ' ' . substr($course['vyuka_od'],0,5) . '–' . substr($course['vyuka_do'],0,5));
+                                        echo htmlspecialchars(($dny[$den] ?? (string)$den) . ' ' . substr($course['vyuka_od'],0,5) . '–' . substr($course['vyuka_do'],0,5));
                                     ?>
                                 </p>
                             </div>
@@ -83,32 +87,52 @@
                     <?php endif; ?>
                 </div>
 
-                <?php
-                // Tlačítko pro přidání do kurzu (jen pro STUDENTA, který ještě není zapsán)
-                if (PermissionService::isUserLoggedIn() && PermissionService::isUserStudent()) {
-                    $studentId = (int)($_SESSION['user_id'] ?? 0);
-                    $isStudentInCourse = $myCoursesService->isStudentInCourse($studentId, $id);
+                <!-- Akční tlačítka -->
+                <div class="container my-4 d-flex gap-2 flex-wrap">
 
-                    if (!$isStudentInCourse) { ?>
-                        <div class="container text-center my-5">
+                    <?php
+                    // Tlačítko pro přidání do kurzu (jen pro STUDENTA, který ještě není zapsán)
+                    if (PermissionService::isUserLoggedIn() && PermissionService::isUserStudent()) {
+                        $studentId = (int)($_SESSION['user_id'] ?? 0);
+                        $isStudentInCourse = $myCoursesService->isStudentInCourse($studentId, $id);
+
+                        if (!$isStudentInCourse) { ?>
                             <a href="actions/course_register_action.php?id=<?= urlencode((string)$id); ?>" class="btn btn-primary">
                                 Zapsat se do kurzu
                             </a>
-                        </div>
-                <?php } } ?>
+                    <?php } } ?>
 
-                <?php
-                // Tlačítko „Spravovat lektory“ (jen pro GARANTA TOHOTO kurzu)
-                if (PermissionService::isUserLoggedIn() && PermissionService::isUserGarant()) {
-                    $currentUserId = (int)($_SESSION['user_id'] ?? 0);
-                    // DetailService ponechává v $course i 'garant_ID', takto je to robustní
-                    if (!empty($course['garant_ID']) && (int)$course['garant_ID'] === $currentUserId) { ?>
-                        <div class="container my-3">
+                    <?php
+                    // Tlačítko „Spravovat lektory“ (jen pro GARANTA TOHOTO kurzu)
+                    if (PermissionService::isUserLoggedIn() && PermissionService::isUserGarant()) {
+                        $currentUserId = (int)($_SESSION['user_id'] ?? 0);
+                        if (!empty($course['garant_ID']) && (int)$course['garant_ID'] === $currentUserId) { ?>
                             <a class="btn btn-outline-secondary" href="course_teachers.php?id=<?= (int)$id ?>">
                                 Spravovat lektory
                             </a>
-                        </div>
-                <?php } } ?>
+                    <?php } } ?>
+
+                    <?php
+                    // Tlačítko „Hodnocení“ – ZOBRAZIT JEN, pokud jsme sem přišli z Vyučovaných kurzů (ctx=taught)
+                    // a současně má uživatel oprávnění (admin || garant || lektor přiřazený ke kurzu).
+                    $showGradesBtn = false;
+                    if (isset($_GET['ctx']) && $_GET['ctx'] === 'taught' && PermissionService::isUserLoggedIn()) {
+                        $uid = (int)($_SESSION['user_id'] ?? 0);
+                        if (PermissionService::isUserAdmin() || PermissionService::isUserGarant()) {
+                            $showGradesBtn = true;
+                        } else {
+                            // lektor přiřazený ke kurzu
+                            $showGradesBtn = $gradesService->isTeacherOfCourse((int)$id, $uid);
+                        }
+                    }
+
+                    if ($showGradesBtn) { ?>
+                        <a class="btn btn-outline-primary" href="gradebook.php?id=<?= (int)$id ?>">
+                            Hodnocení
+                        </a>
+                    <?php } ?>
+
+                </div>
             </div>
         </main>
     </div>
