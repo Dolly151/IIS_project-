@@ -46,5 +46,18 @@
         header("Location: {$scheme}://{$host}{$path}", true, 302); // 302 = dočasný redirect
         exit;
     }
+
+    // function redirect($dest)
+    // {
+    //     $script = $_SERVER["PHP_SELF"];
+    //     if (strpos($dest,'/') === 0) {
+    //         $path = $dest;
+    //     } else {
+    //         $path = substr($script, 0, strrpos($script, '/')) . "/$dest";
+    //     }
+    //     $name = $_SERVER["SERVER_NAME"];
+    //     header("HTTP/1.1 301 Moved Permanently");
+    //     header("Location: http://$name$path");
+    // }
     
 ?>
