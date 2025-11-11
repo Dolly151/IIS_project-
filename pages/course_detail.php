@@ -92,7 +92,7 @@
 
                     <?php
                     // Tlačítko pro přidání do kurzu (jen pro STUDENTA, který ještě není zapsán)
-                    if (PermissionService::isUserLoggedIn() && PermissionService::isUserStudent()) {
+                    if (PermissionService::isUserLoggedIn() && (PermissionService::isUserStudent() || PermissionService::isUserGuest())) { // registrovany uzivatel se stane studentem az po zapsani
                         $studentId = (int)($_SESSION['user_id'] ?? 0);
                         $isStudentInCourse = $myCoursesService->isStudentInCourse($studentId, $id);
 

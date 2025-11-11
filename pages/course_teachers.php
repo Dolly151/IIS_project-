@@ -23,7 +23,7 @@ make_header('Lektoři kurzu', 'main');
     <h1>Lektoři kurzu #<?= (int)$courseId ?></h1>
     <hr>
 
-    <form class="row g-2 mb-4" method="post" action="/pages/actions/teacher_add_action.php">
+    <form class="row g-2 mb-4" method="post" action="actions/teacher_add_action.php">
       <input type="hidden" name="course_id" value="<?= (int)$courseId ?>">
       <div class="col-md-6">
         <label class="form-label">Přidat lektora</label>
@@ -50,7 +50,7 @@ make_header('Lektoři kurzu', 'main');
               <td><?= htmlspecialchars($t['login']) ?></td>
               <td><?= (int)$t['role'] ?></td>
               <td>
-                <form method="post" action="/pages/actions/teacher_remove_action.php" onsubmit="return confirm('Odebrat tohoto lektora?');">
+                <form method="post" action="actions/teacher_remove_action.php" onsubmit="return confirm('Odebrat tohoto lektora?');">
                   <input type="hidden" name="course_id" value="<?= (int)$courseId ?>">
                   <input type="hidden" name="user_id" value="<?= (int)$t['ID'] ?>">
                   <button class="btn btn-outline-danger btn-sm" type="submit">Odebrat</button>

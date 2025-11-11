@@ -59,7 +59,7 @@ $courses   = $service->getStudentCourses($studentId);
                                             <i class="fa fa-info-circle"></i> Detail
                                         </a>
                                         <!-- připravené pro budoucí Rozvrh/Hodnocení -->
-                                        <a href="course_grades.php?course_id=<?= (int)$c['id'] ?>" class="btn btn-sm btn-outline-success" style="color: white">
+                                        <a href="grades.php?course_id=<?= (int)$c['id'] ?>" class="btn btn-sm btn-outline-success" style="color: white">
                                             <i class="fa fa-star"></i> Moje hodnocení
                                         </a>
                                     </div>

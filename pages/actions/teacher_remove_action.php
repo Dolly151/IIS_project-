@@ -11,11 +11,11 @@ $userId   = (int)($_POST['user_id'] ?? 0);
 if ($courseId > 0 && $userId > 0) {
     $svc = new TeacherService();
     if ($svc->removeTeacher($courseId, $userId)) {
-        redirect('/pages/course_teachers.php?id='.$courseId.'&success='.urlencode('Lektor odebrán.'));
+        redirect('../course_teachers.php?id='.$courseId.'&success='.urlencode('Lektor odebrán.'));
         exit;
     }
-    redirect('/pages/course_teachers.php?id='.$courseId.'&error='.urlencode('Nepodařilo se odebrat lektora.'));
+    redirect('../course_teachers.php?id='.$courseId.'&error='.urlencode('Nepodařilo se odebrat lektora.'));
     exit;
 }
-redirect('/pages/overview.php?error='.urlencode('Neplatná data požadavku'));
+redirect('../overview.php?error='.urlencode('Neplatná data požadavku'));
 exit;

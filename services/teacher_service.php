@@ -62,11 +62,11 @@ class TeacherService
     public function removeTeacher(int $courseId, int $userId): bool
     {
         $this->assertGarantOnly($courseId);
-
-        return $this->repository->deleteByCondition('lektor_uci_v_kurzu', [
+        $ret = $this->repository->getByCondition('lektor_uci_v_kurzu', [], [
             'uzivatel_ID' => $userId,
             'kurz_ID'     => $courseId
         ]);
+        return $this->repository->deleteById('lektor_uci_v_kurzu', $ret[0]['ID']);
     }
 
     /** Vrátí kandidáty do selectu – pouze uživatele s rolí LECTOR. */

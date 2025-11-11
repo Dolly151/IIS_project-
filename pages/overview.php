@@ -18,7 +18,7 @@
 
         <main>
             <div class="container d-flex flex-column py-5 gap-3">
-                <?php if (PermissionService::isUserLoggedIn() && (PermissionService::isUserAdmin() || PermissionService::isUserGarant())) { ?>
+                <?php if (PermissionService::isUserLoggedIn() /*&& (PermissionService::isUserAdmin() || PermissionService::isUserGarant() )*/  /* jakykoliv registrovany uzivatelvytvari kurz viz. zadani*/) { ?>
                     <div class="container p-0">
                         <a href="course_create.php" class="btn btn-primary">+ Vytvořit kurz</a>
                     </div>

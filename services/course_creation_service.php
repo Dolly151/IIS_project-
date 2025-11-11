@@ -29,9 +29,9 @@ class CourseCreationService
 
     public function createCourse(): int
     {
-        // povol admina i garanta
+        // povol vsechny registrovane uzivatele
         $role = $_SESSION['role'] ?? null;
-        if ($role !== PermissionLevel::ADMIN->value && $role !== PermissionLevel::GARANT->value) {
+        if ($role == null || !PermissionService::isUserLoggedIn()) {
             http_response_code(403);
             return -1;
         }
@@ -48,7 +48,7 @@ class CourseCreationService
             'vyuka_od' => $_POST['vyuka_od'],
             'vyuka_do' => $_POST['vyuka_do'],
             'garant_ID' => $id,
-            'mistnost_ID' => (int)$_POST['room_id']
+            // 'mistnost_ID' => (int)$_POST['room_id']
         ];
 
         $ret = $this->repository->insert('Kurz', $data);

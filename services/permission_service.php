@@ -83,6 +83,11 @@ class PermissionService
         return self::validatePermissionLevel(PermissionLevel::STUDENT);
     }
 
+    public static function isUserGuest(): bool
+    {
+        return self::validatePermissionLevel(PermissionLevel::GUEST);
+    }
+
     public static function isUserLector(): bool
     {
         return self::validatePermissionLevel(PermissionLevel::LECTOR);
