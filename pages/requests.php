@@ -23,12 +23,24 @@
         
         foreach ($requests as $req){
             $html .= "<tr>";
-            foreach ($req as $val) {
+            foreach ($req as $key => $val) {
                 if (is_array($val)) {
                     $html .= "<td>" . implode(' ', $val) . "</td>";
                 } 
                 else {
-                    $html .= "<td>$val</td>";
+                    if ($key === 'typ') {
+                        if ($val == RequestType::GARANT_REQUEST->value) {
+                            $html .= "<td>Žádost o garanta</td>";
+                        } elseif ($val == RequestType::COURSE_REGISTRATION->value) {
+                            $html .= "<td>Žádost o zápis do kurzu</td>";
+                        } elseif ($val == RequestType::COURSE_APPROVAL->value) {
+                            $html .= "<td>Žádost o schválení kurzu</td>";
+                        } else {
+                            $html .= "<td>Neznámý typ</td>";
+                        }
+                    } else {
+                        $html .= "<td>$val</td>";
+                    }
                 }
             }
 
