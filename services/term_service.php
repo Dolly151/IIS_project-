@@ -49,12 +49,12 @@ class TermService
         // volitelně můžeš nastavit default pro 'hodnoceni' na 0, pokud je v tabulce NOT NULL:
         // $data['hodnoceni'] = 0;
 
-        return $this->repo->insert('termin', $data); // použij stejné casing jako v DB (u tebe 'termin')
+        return $this->repo->insert('Termin', $data); // použij stejné casing jako v DB (u tebe 'termin')
     }
 
     /** načti existující termíny kurzu (pro náhled po vytvoření) */
     public function listByCourse(int $courseId): array
     {
-        return $this->repo->getByCondition('termin', ['ID','nazev','typ','datum','kapacita','mistnost_ID'], ['kurz_ID' => $courseId]);
+        return $this->repo->getByCondition('Termin', ['ID','nazev','typ','datum','kapacita','mistnost_ID'], ['kurz_ID' => $courseId]);
     }
 }

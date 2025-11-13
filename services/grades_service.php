@@ -111,7 +111,7 @@ class GradesService
         $out = [];
         foreach ($links as $l) {
             $uid = (int) $l['uzivatel_ID'];
-            $u = $this->repository->getOneById('uzivatel', ['ID', 'jmeno', 'prijmeni', 'email'], $uid);
+            $u = $this->repository->getOneById('Uzivatel', ['ID', 'jmeno', 'prijmeni', 'email'], $uid);
             if ($u)
                 $out[] = $u;
         }

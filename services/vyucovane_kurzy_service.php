@@ -23,7 +23,7 @@ class TaughtCoursesService
             // načti garanta (hezké zobrazení)
             $g = null;
             if (!empty($k['garant_ID'])) {
-                $g = $this->repo->getOneById('uzivatel', ['ID','jmeno','prijmeni'], (int)$k['garant_ID']);
+                $g = $this->repo->getOneById('Uzivatel', ['ID','jmeno','prijmeni'], (int)$k['garant_ID']);
             }
 
             $out[] = [
