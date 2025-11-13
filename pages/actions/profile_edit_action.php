@@ -14,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $profileService->updatePassword($_POST['pwd']);
     }
+    
     redirect("../profile.php?success=Údaje byly úspěšně aktualizovány");
     exit();
 }

@@ -40,7 +40,11 @@ class ProfileService
             'adresa' => $_POST['address']
         ];
 
-        return $this->repository->updateId('Uzivatel', $_SESSION['user_id'], $data);
+        if (isset($_POST['role']) && PermissionService::isUserAdmin()) {
+            $data['role'] = $_POST['role'];
+        }
+
+        return $this->repository->updateId('Uzivatel', $_GET['user_id'], $data);
     }
 
     public function updatePassword(): bool
@@ -50,6 +54,6 @@ class ProfileService
         }
 
         $hashedPassword = password_hash($_POST['pwd'], PASSWORD_DEFAULT);
-        return $this->repository->updateId('Uzivatel', $_SESSION['user_id'], ['heslo' => $hashedPassword]);
+        return $this->repository->updateId('Uzivatel', $_GET['user_id'], ['heslo' => $hashedPassword]);
     }
 }

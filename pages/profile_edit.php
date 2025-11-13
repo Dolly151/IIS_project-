@@ -2,6 +2,7 @@
     require_once('../common/common.php');
     require_once('../services/permission_service.php');
     require_once('../services/profile_service.php');
+    require_once('../common/enums.php');
 
     PermissionService::requireRole(PermissionLevel::ANY);
 
@@ -10,9 +11,10 @@
     if ($_SESSION['role'] != PermissionLevel::ADMIN->value) {
         PermissionService::isUserThisId((int)$id);
     }
-
+    $is_admin = PermissionService::isUserAdmin();
     $profileService = new ProfileService();
     $userDetails = $profileService->getUserDetail($id);
+    if ($is_admin) $_SESSION['role'] = PermissionLevel::ADMIN->value;
 
     make_header('WIS - úprava profilu', 'profile_edit')
 ?>                
@@ -26,7 +28,7 @@
 
         <main>
             <div class="container login-container py-5">
-                <form action="actions/profile_edit_action.php" method="post">
+                <form action="actions/profile_edit_action.php?user_id=<?php echo htmlspecialchars($id); ?>" method="post">
                     <h1>Úprava profilu</h1>
                     <hr>
                     <div class="form-group">
@@ -57,6 +59,12 @@
                         <label for="text" class="form-label">Adresa</label>
                         <input type="text" class="form-control" value="<?php echo htmlspecialchars($userDetails['adresa']); ?>" name="address">
                     </div>
+                    <?php if (PermissionService::isUserAdmin()) { ?>
+                    <div class="form-group">
+                        <label class="form-label">Role</label>
+                        <input type="number" min="1" max="4" class="form-control" placeholder="<?php echo htmlspecialchars($userDetails['role']); ?>" name="role" required>
+                    </div>
+                    <?php } ?>
                     <div class="form-group text-center my-5">
                         <button type="submit" class="btn btn-primary">Uložit</button>
                         <a href="profile.php" class="btn btn-primary">Zpět na profil</a>
