@@ -107,7 +107,7 @@
                     if (PermissionService::isUserLoggedIn() && PermissionService::isUserGarant()) {
                         $currentUserId = (int)($_SESSION['user_id'] ?? 0);
                         if (!empty($course['garant_ID']) && (int)$course['garant_ID'] === $currentUserId) { ?>
-                            <a class="btn btn-outline-secondary" href="course_teachers.php?id=<?= (int)$id ?>">
+                            <a class="btn btn-primary" href="course_teachers.php?id=<?= (int)$id ?>">
                                 Spravovat lektory
                             </a>
                     <?php } } ?>
@@ -127,7 +127,7 @@
                     }
 
                     if ($showGradesBtn) { ?>
-                        <a class="btn btn-outline-primary" href="gradebook.php?id=<?= (int)$id ?>">
+                        <a class="btn btn-primary" href="gradebook.php?id=<?= (int)$id ?>">
                             Hodnocení
                         </a>
                     <?php } ?>

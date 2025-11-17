@@ -42,7 +42,7 @@
             <div class="container text-center">
                 <a href="actions/logout_action.php" class="btn btn-primary">Odhlásit se</a>
                 <a href="profile_edit.php?id=<?php echo urlencode($userDetails['ID']); ?>" class="btn btn-primary">Upravit</a>
-                <a href="actions/delete_user_action.php" class="btn btn-primary">Smazat účet</a>
+                <a href="actions/delete_user_action.php" class="btn btn-primary" onclick="return confirm('Opravdu chcete smazat tenhle účet?')">Smazat účet</a>
             </div>
             
         </main>

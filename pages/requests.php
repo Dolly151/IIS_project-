@@ -15,7 +15,7 @@
             return "<p>Žádné žádosti k zobrazení.</p>";
         }
         
-        $html = "<table class='table'><thead><tr>";
+        $html = "<table class='table req-table'><thead><tr>";
         foreach (array_keys($requests[0]) as $col) {
             $html .= "<th>$col</th>";
         }

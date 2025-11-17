@@ -66,7 +66,7 @@ class RoomService
             return [];
         }
 
-        $termins = $this->repository->getByCondition('termin', [], ['mistnost_ID' => $id]);
+        $termins = $this->repository->getByCondition('Termin', [], ['mistnost_ID' => $id]);
         $room['termins'] = $termins;
         return $room;
     }

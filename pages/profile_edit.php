@@ -67,7 +67,11 @@
                     <?php } ?>
                     <div class="form-group text-center my-5">
                         <button type="submit" class="btn btn-primary">Uložit</button>
-                        <a href="profile.php" class="btn btn-primary">Zpět na profil</a>
+                        <?php if (PermissionService::isUserAdmin()) { ?> 
+                        <a href="users.php" class="btn btn-primary">Zpět na uživatele</a>
+                        <?php } else { ?>
+                        <a href="profile.php" class="btn btn-primary">Zpět na profil</a> 
+                        <?php } ?>   
                     </div>
                 </form> 
             </div>

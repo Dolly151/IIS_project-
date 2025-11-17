@@ -3,14 +3,13 @@
     display: grid;
     grid-template-columns: 80px repeat(5, 1fr);
     gap: 0;
-    margin-bottom: 6px;
   }
   .rozvrh-head .time-col-head { }
   .rozvrh-head .day-col-head {
     text-align: center;
     font-weight: 600;
     padding: 8px 0;
-    border-bottom: 2px solid #e5e7eb;
+    border-left: 1px solid var(--color-gray);
   }
   
   /* Tělo mřížky */
@@ -31,7 +30,7 @@
     padding-right: 6px;
     display: flex;
     justify-content: flex-end;
-    align-items: flex-start;
+    align-items: center;
     font-size: 12px;
     color: #6b7280;
   }
@@ -41,13 +40,13 @@
   .day-col {
     position: relative;
     min-height: calc( ( (18 - 8) * 60 / 30 ) * 30px ); /* (end-start)/slot * 30px */
-    border-left: 1px solid #f1f5f9;
+    border-left: 1px solid #e5e7eb;
     background: #fff;
   }
   .day-col:first-of-type { border-left: none; }
   .day-col .day-slot {
     height: 30px;               /* stejný slot jako vlevo */
-    border-top: 1px dashed #f3f4f6;
+    border-top: 1px dashed #e5e7eb;
   }
   .day-col .day-slot:nth-child(2n) { background: #fcfcfd; }
   .day-col .day-slot:first-child { border-top: 1px solid #e5e7eb; }
@@ -68,19 +67,18 @@
     overflow: hidden;
   }
   .event-block .code {
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
     letter-spacing: .3px;
   }
   .event-block .name {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
-    margin-top: 2px;
+    line-height: 15px;
   }
   .event-block .meta {
     font-size: 12px;
     color: #374151;
-    margin-top: 2px;
   }
   
   /* Mobil: místo mřížky zobrazit jednoduchý seznam */

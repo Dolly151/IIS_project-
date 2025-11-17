@@ -112,3 +112,42 @@ input:focus {
   box-shadow: none !important;   
   border-color: var(--color-primary) !important;
 }
+
+.alert {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    border: none;
+}
+
+.badge {
+    background-color: var(--color-primary);
+    color: #ffffff;
+}
+
+select:focus,
+.form-select:focus {
+    outline: none;
+    border: 1px solid var(--color-primary);
+    box-shadow: none;
+}
+
+#room_id:focus {
+    outline: none;
+    border: 1px solid var(--color-primary);
+    box-shadow: none;
+}
+
+#den:focus {
+    outline: none;
+    border: 1px solid var(--color-primary);
+    box-shadow: none;
+}
+
+.req-table tbody td:nth-of-type(6) {
+    text-align: right;
+}
+
+.req-table thead,
+.req-table tbody{
+    border-bottom: 1px solid var(--color-gray) ;
+}

@@ -36,3 +36,8 @@ label::after {
 .btn-primary:hover {
     background-color: var(--color-secondary);
 }
+
+.alert {
+    background-color: var(--color-primary);
+    color: #ffffff;
+}

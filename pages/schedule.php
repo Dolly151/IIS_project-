@@ -151,13 +151,17 @@ while ($cur < $end) {
 
 <body>
 <div class="wrapper d-flex">
-    <header><?php include __DIR__ . '/menu.php'; ?></header>
+    <header>
+        <?php include __DIR__ . '/menu.php'; ?>
+    </header>
 
     <main>
         <div class="container py-5">
+            <h1>Rozvrh</h1>
+            <hr>
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <a class="btn btn-outline-secondary text-white" href="?week_offset=<?= $weekOffset-1 ?>">&laquo; Minulý týden</a>
-                <h2 class="m-0">Týden <?= $monday->format('j.n.Y') ?> – <?= $sunday->format('j.n.Y') ?></h2>
+                <h3 class="m-0">Týden <?= $monday->format('j.n.Y') ?> – <?= $sunday->format('j.n.Y') ?></h2>
                 <div class="d-flex gap-2">
                     <a class="btn btn-outline-primary text-white" href="?week_offset=0">Tento týden</a>
                     <a class="btn btn-outline-secondary text-white" href="?week_offset=<?= $weekOffset+1 ?>">Příští týden &raquo;</a>

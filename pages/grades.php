@@ -37,55 +37,57 @@ function termTypeLabel($typ): string {
 <div class="wrapper d-flex">
     <header><?php include __DIR__ . '/menu.php'; ?></header>
 
-    <main class="container py-4">
-        <h1 class="mb-3">Moje hodnocení</h1>
-
-        <?php if (empty($items)): ?>
-            <div class="alert alert-info">Zatím nemáš žádné záznamy hodnocení.</div>
-        <?php else: ?>
-            <?php foreach ($byCourse as $cid => $rows): 
-                $first = $rows[0];
-                $code  = htmlspecialchars($first['kurz']['zkratka'] ?: ('KURZ '.$cid));
-                $name  = htmlspecialchars($first['kurz']['nazev'] ?: '');
-                $sum   = (int)$totals[$cid];
-            ?>
-            <section class="mb-4">
-                <div class="d-flex justify-content-between align-items-end mb-2">
-                    <h4 class="m-0">
-                        <?= $code ?><?= $name ? ' – '.$name : '' ?>
-                    </h4>
-                    <div>
-                        <span class="badge text-bg-primary">Součet: <?= $sum ?> / 100</span>
+    <main>
+        <div class="container py-5">
+            <h1 class="mb-3">Moje hodnocení</h1>
+            <hr>
+            <?php if (empty($items)): ?>
+                <div class="alert alert-info">Zatím nemáš žádné záznamy hodnocení.</div>
+            <?php else: ?>
+                <?php foreach ($byCourse as $cid => $rows): 
+                    $first = $rows[0];
+                    $code  = htmlspecialchars($first['kurz']['zkratka'] ?: ('KURZ '.$cid));
+                    $name  = htmlspecialchars($first['kurz']['nazev'] ?: '');
+                    $sum   = (int)$totals[$cid];
+                ?>
+                <section class="mb-4">
+                    <div class="d-flex justify-content-between align-items-end mb-2">
+                        <h4 class="m-0">
+                            <?= $code ?><?= $name ? ' – '.$name : '' ?>
+                        </h4>
+                        <div>
+                            <span class="badge py-2">Součet: <?= $sum ?> / 100</span>
+                        </div>
                     </div>
-                </div>
 
-                <div class="table-responsive">
-                    <table class="table table-sm align-middle">
-                        <thead>
-                            <tr>
-                                <th style="width: 30%;">Termín</th>
-                                <th style="width: 20%;">Typ</th>
-                                <th style="width: 20%;">Datum</th>
-                                <th style="width: 15%;">Body</th>
-                                <th style="width: 15%;">Zapsáno</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php foreach ($rows as $r): ?>
-                            <tr>
-                                <td><?= htmlspecialchars($r['termin']['nazev']) ?></td>
-                                <td><?= htmlspecialchars(termTypeLabel($r['termin']['typ'])) ?></td>
-                                <td><?= htmlspecialchars($r['termin']['datum'] ? date('d.m.Y H:i', strtotime($r['termin']['datum'])) : '') ?></td>
-                                <td><strong><?= (int)$r['body'] ?></strong></td>
-                                <td><?= htmlspecialchars($r['zaznam_datum'] ? date('d.m.Y H:i', strtotime($r['zaznam_datum'])) : '') ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-            <?php endforeach; ?>
-        <?php endif; ?>
+                    <div class="table-responsive">
+                        <table class="table table-sm align-middle">
+                            <thead>
+                                <tr>
+                                    <th style="width: 30%;">Termín</th>
+                                    <th style="width: 20%;">Typ</th>
+                                    <th style="width: 20%;">Datum</th>
+                                    <th style="width: 15%;">Body</th>
+                                    <th style="width: 15%;">Zapsáno</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($rows as $r): ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($r['termin']['nazev']) ?></td>
+                                    <td><?= htmlspecialchars(termTypeLabel($r['termin']['typ'])) ?></td>
+                                    <td><?= htmlspecialchars($r['termin']['datum'] ? date('d.m.Y H:i', strtotime($r['termin']['datum'])) : '') ?></td>
+                                    <td><strong><?= (int)$r['body'] ?></strong></td>
+                                    <td><?= htmlspecialchars($r['zaznam_datum'] ? date('d.m.Y H:i', strtotime($r['zaznam_datum'])) : '') ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
     </main>
 </div>
 </body>

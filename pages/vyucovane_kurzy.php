@@ -19,36 +19,38 @@ make_header('WIS – Vyučované kurzy', 'overview'); // klidně změň CSS
     <div class="wrapper d-flex">
         <header><?php include __DIR__ . '/menu.php'; ?></header>
 
-        <main class="container d-flex flex-column py-5 gap-3">
-            <h1>Vyučované kurzy</h1>
-
-            <?php if (empty($courses)): ?>
-                <div class="alert alert-info">Nemáš přiřazené žádné vyučované kurzy.</div>
-            <?php else: ?>
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 gap-3">
-                    <?php foreach ($courses as $c): ?>
-                        <div class="col d-flex flex-column gap-3 w-auto h-auto p-3 border rounded">
-                            <div>
-                                <h3 class="short"><?= htmlspecialchars($c['zkratka']) ?></h3>
-                                <p><?= htmlspecialchars($c['nazev']) ?></p>
-                            </div>
-                            <div>
-                                <?php if (!empty($c['garant'])): ?>
-                                    <p class="garant">Garant předmětu: <?= htmlspecialchars($c['garant']) ?></p>
-                                <?php endif; ?>
-                                <div class="d-flex gap-2">
-                                    <a class="btn btn-sm btn-outline-secondary"
-                                        href="course_detail.php?id=<?= (int) $c['ID'] ?>&ctx=taught">Detail</a>
-                                    <a class="btn btn-sm btn-primary" href="gradebook.php?id=<?= (int) $c['ID'] ?>">Seznam
-                                        studentů</a>
-                                    <a class="btn btn-sm btn-success" href="term_create.php?id=<?= (int) $c['ID'] ?>">Vypsat
-                                        termín</a>
+        <main>
+            <div class="container d-flex flex-column py-5">
+                <h1>Vyučované kurzy</h1>
+                <hr>
+                <?php if (empty($courses)): ?>
+                    <div class="alert alert-info">Nemáš přiřazené žádné vyučované kurzy.</div>
+                <?php else: ?>
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 gap-3">
+                        <?php foreach ($courses as $c): ?>
+                            <div class="col d-flex flex-column gap-3 w-auto h-auto p-3">
+                                <div>
+                                    <h3 class="short"><?= htmlspecialchars($c['zkratka']) ?></h3>
+                                    <p><?= htmlspecialchars($c['nazev']) ?></p>
+                                </div>
+                                <div>
+                                    <?php if (!empty($c['garant'])): ?>
+                                        <p class="garant mb-2">Garant předmětu: <?= htmlspecialchars($c['garant']) ?></p>
+                                    <?php endif; ?>
+                                    <div class="d-flex gap-2">
+                                        <a class="btn btn-sm btn-primary"
+                                            href="course_detail.php?id=<?= (int) $c['ID'] ?>&ctx=taught">Detail</a>
+                                        <a class="btn btn-sm btn-primary" href="gradebook.php?id=<?= (int) $c['ID'] ?>">Seznam
+                                            studentů</a>
+                                        <a class="btn btn-sm btn-primary" href="term_create.php?id=<?= (int) $c['ID'] ?>">Vypsat
+                                            termín</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+            </div>
         </main>
     </div>
 </body>

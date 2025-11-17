@@ -32,7 +32,7 @@ $courses   = $service->getStudentCourses($studentId);
             <h1>Moje kurzy</h1>
             <hr>
             <?php if (empty($courses)): ?>
-                <div class="alert alert-info" style="background-color: var(--color-secondary); color: white; border: none;">Zatím nejsi zapsán v žádném kurzu.</div>
+                <div class="alert alert-info" style="background-color: var(--color-primary); color: white; border: none;">Zatím nejsi zapsán v žádném kurzu.</div>
             <?php else: ?>
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
                     <?php foreach ($courses as $c): ?>
@@ -55,11 +55,11 @@ $courses   = $service->getStudentCourses($studentId);
                                     <?php endif; ?>
 
                                     <div class="mt-auto d-flex gap-2 flex-wrap">
-                                        <a href="course_detail.php?id=<?= (int)$c['id'] ?>" class="btn btn-sm btn-outline-primary" style="color: white">
+                                        <a href="course_detail.php?id=<?= (int)$c['id'] ?>" class="btn btn-sm btn-primary" style="color: white">
                                             <i class="fa fa-info-circle"></i> Detail
                                         </a>
                                         <!-- připravené pro budoucí Rozvrh/Hodnocení -->
-                                        <a href="grades.php?course_id=<?= (int)$c['id'] ?>" class="btn btn-sm btn-outline-success" style="color: white">
+                                        <a href="grades.php?course_id=<?= (int)$c['id'] ?>" class="btn btn-sm btn-primary" style="color: white">
                                             <i class="fa fa-star"></i> Moje hodnocení
                                         </a>
                                     </div>
