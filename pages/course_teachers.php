@@ -31,12 +31,12 @@ make_header('Lektoři kurzu', 'main');
         <div class="col-md-6">
           <label class="form-label">Přidat lektora</label>
           <select class="form-select" name="user_id" required>
-            <option value="" disabled selected>— vyber lektora (role LECTOR) —</option>
+            <option value="" disabled selected>— vyber lektora (pokud neni, da mu roli lektor) —</option>
             <?php foreach ($cands as $u): ?>
               <option value="<?= (int)$u['ID'] ?>"><?= htmlspecialchars($u['jmeno'].' '.$u['prijmeni'].' ('.$u['login'].')') ?></option>
             <?php endforeach; ?>
           </select>
-          <div class="form-text">Seznam zobrazuje pouze uživatele s rolí <strong>LECTOR</strong>.</div>
+          <!-- <div class="form-text">Seznam zobrazuje pouze uživatele s rolí <strong>LECTOR</strong>.</div> -->
         </div>
         <div class="col-md-3 d-flex align-items-center">
           <button class="btn btn-primary" type="submit">Přidat</button>

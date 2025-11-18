@@ -39,7 +39,7 @@ class TeacherService
         return $out;
     }
 
-    /** Přidá uživatele jako lektora POUZE pokud už má roli LECTOR. */
+    
     public function addTeacher(int $courseId, int $userId): bool
     {
         $this->assertGarantOnly($courseId);
@@ -47,9 +47,17 @@ class TeacherService
         $u = $this->repository->getOneById('Uzivatel', ['role'], $userId);
         if (!$u) return false;
 
-        // musí být přesně/lebo aspoň role LECTOR (přísněji == LECTOR)
-        if ((int)$u['role'] !== PermissionLevel::LECTOR->value) {
-            return false; // nepřidávej, není lektor
+        if ((int)$u['role'] == PermissionLevel::LECTOR->value) {
+            // ok, přidej
+        } elseif ((int)$u['role'] == PermissionLevel::GARANT->value) {
+            // ok, přidej
+        } elseif ((int)$u['role'] == PermissionLevel::GUEST->value) {
+            // vytvoř lektora
+            $this->repository->updateId('Uzivatel', $userId, [
+                'role' => PermissionLevel::LECTOR->value
+            ]);
+        } else {
+            return false;
         }
 
         return $this->repository->insert('lektor_uci_v_kurzu', [
@@ -72,10 +80,11 @@ class TeacherService
     /** Vrátí kandidáty do selectu – pouze uživatele s rolí LECTOR. */
     public function listLecturerCandidates(): array
     {
-        return $this->repository->getByCondition(
+
+        return $this->repository->getByRawCondition(
             'Uzivatel',
             ['ID','jmeno','prijmeni','login','role'],
-            ['role' => PermissionLevel::LECTOR->value]
+            '(role = ' . PermissionLevel::LECTOR->value .') OR (role = ' . PermissionLevel::GUEST->value .') OR (role = ' . PermissionLevel::GARANT->value .')'
         );
     }
 }
