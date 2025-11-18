@@ -8,7 +8,26 @@
     $request_service = new RequestService();
     $requests_to_approve = $request_service->getRoleRelevantRequests();
     $my_requests = $request_service->getMyRequests();
-    
+    $view = $_GET['view'] ?? 'my';
+    $selectedType = (isset($_GET['type']) && $_GET['type'] !== '') ? (int)$_GET['type'] : null; 
+
+    $requestTypes = [
+        RequestType::GARANT_REQUEST->value => 'Žádost o garanta',
+        RequestType::COURSE_REGISTRATION->value => 'Žádost o zápis do kurzu',
+        RequestType::COURSE_APPROVAL->value => 'Žádost o schválení kurzu',
+    ];       
+
+    function filterRequestsByType(array $requests, ?int $type): array
+    {
+        if ($type === null) {
+            return $requests;
+
+        }
+        return array_values(array_filter($requests, function($req) use ($type) {
+            return isset($req['typ']) && (int)$req['typ'] === $type;
+        }));
+    }
+
     function renderRequestsTable($requests)
     {
         if (empty($requests)) {
@@ -44,8 +63,8 @@
                 }
             }
 
-            $view = $_GET['view'] ?? 'my';
-            if ($view == 'approve') {
+            $viewLocal = $_GET['view'] ?? 'my';
+            if ($viewLocal == 'approve') {
                 $html .= "<td><a href='actions/request_aprove_action.php?id=" . urlencode($req['ID']) . "' class='btn btn-success'>Schválit</a></td>";
                 $html .= "<td><a href='actions/request_deny_action.php?id=" . urlencode($req['ID']) . "' class='btn btn-danger'>Zamítnout</a></td>";
             }
@@ -57,8 +76,6 @@
     }
     
     make_header('WIS - Žádosti', 'requests');
-    $view = $_GET['view'] ?? 'my';
-    
 ?>
 
 <body>
@@ -75,12 +92,21 @@
                 </nav>
                 <hr>
                 <div>
+                    <div class="mb-3">
+                        <span>Filtr typů žádostí: </span>
+                        <a href="?view=<?= htmlspecialchars($view) ?>" class="btn btn-sm btn-primary<?= $selectedType===null ? ' active' : '' ?>">Všechny</a>
+                        <?php foreach ($requestTypes as $k => $label): ?>
+                            <a href="?view=<?= htmlspecialchars($view) ?>&type=<?= $k ?>" class="btn btn-sm btn-primary<?= $selectedType===$k ? ' active' : '' ?>"><?= htmlspecialchars($label) ?></a>
+                        <?php endforeach; ?>
+                    </div>
                     <?php
                         if ($view === 'approve') {
-                            echo renderRequestsTable($requests_to_approve);
+                            $toShow = filterRequestsByType($requests_to_approve, $selectedType);
+                            echo renderRequestsTable($toShow);
                         } 
                         else {
-                            echo renderRequestsTable($my_requests);
+                            $toShow = filterRequestsByType($my_requests, $selectedType);
+                            echo renderRequestsTable($toShow);
                         }
                     ?>
                 </div>

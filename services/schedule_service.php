@@ -21,6 +21,7 @@ class ScheduleService
         if (empty($rows)) return [];
 
         $out = [];
+
         foreach ($rows as $r) {
             $cid = (int)($r['kurz_ID'] ?? 0);
             if ($cid <= 0) continue;
@@ -49,9 +50,36 @@ class ScheduleService
                 'starts_at'   => $startsAt,
                 'ends_at'     => $endsAt,
                 'type'        => 'výuka',
+                'term_css'    => 'schedule-course'
             ];
-        }
 
+            $term = $this->repository->getByCondition(
+                'Termin',
+                ['ID', 'nazev', 'typ', 'datum', 'popis'],
+                ['kurz_ID' => $cid]
+            );
+            
+            foreach ($term as $t) {
+                $termStart = new DateTime($t['datum']);
+                $weekStart = clone $monday;
+                $weekEnd = (clone $monday)->modify('+6 days'); 
+
+                if ($termStart < $weekStart || $termStart > $weekEnd) {
+                    continue;
+                }
+
+                $out[] = [
+                    'course_id'   => $cid,
+                    'course_name' => $c['nazev'],
+                    'course_code'=> $c['zkratka'],
+                    'starts_at'   => $termStart->format('Y-m-d H:i:s'),
+                    'ends_at'     => null,
+                    'type'        => 'termín ' . ($t['nazev'] ?? ''),
+                    'description' => $t['popis'] ?? '',
+                    'term_css'    => 'schedule-term'  
+                ];
+            }
+        }
         usort($out, fn($a,$b) => strcmp($a['starts_at'], $b['starts_at']));
         return $out;
     }
