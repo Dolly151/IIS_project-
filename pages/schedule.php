@@ -131,6 +131,7 @@ foreach ($items as $it) {
         'end'         => $end,
         'top_pct'     => max(0.0, min(100.0, ($topMin / $totalMinutes) * 100.0)),
         'height_pct'  => max(3.5, ($durMin / $totalMinutes) * 100.0),
+        'term_css'    => $it['term_css'] ?? 'schedule-course'
     ];
 }
 
@@ -208,7 +209,7 @@ while ($cur < $end) {
                                 );
                             ?>
                             <a href="course_detail.php?id=<?= (int)$blk['course_id'] ?>"
-                            class="event-block"
+                            class="event-block <?= htmlspecialchars($blk['term_css']) ?>"
                             style="<?= $inlineStyle ?>">
                                 <div class="code"><?= htmlspecialchars($blk['course_code']) ?></div>
                                 <div class="name text-truncate"><?= htmlspecialchars($blk['course_name']) ?></div>

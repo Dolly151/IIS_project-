@@ -151,3 +151,9 @@ select:focus,
 .req-table tbody{
     border-bottom: 1px solid var(--color-gray) ;
 }
+
+.type.active,
+.btn.btn-sm.btn-primary.active {
+    background-color: var(--color-secondary);
+    color: #ffffff;
+}
