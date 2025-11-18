@@ -12,7 +12,7 @@ $userId = (int) ($_SESSION['user_id'] ?? 0);
 $svc = new TaughtCoursesService();
 $courses = $svc->listByTeacher($userId);
 
-make_header('WIS – Vyučované kurzy', 'overview'); // klidně změň CSS
+make_header('WIS – Vyučované kurzy', 'overview');
 ?>
 
 <body>

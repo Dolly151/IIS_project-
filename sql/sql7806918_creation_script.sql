@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `sql7806918`.`Termin` (
   `hodnoceni` INT NULL,
   `kapacita` INT NULL,
   `kurz_ID` INT NOT NULL,
-  `mistnost_ID` INT NOT NULL,
+  `mistnost_ID` INT NULL,
   PRIMARY KEY (`ID`),
   CONSTRAINT `fk_termin_kurz1`
     FOREIGN KEY (`kurz_ID`)

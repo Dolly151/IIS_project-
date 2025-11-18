@@ -9,6 +9,13 @@ $studentId = (int)($_SESSION['user_id'] ?? 0);
 $svc = new GradesService();
 $items = $studentId > 0 ? $svc->getStudentGrades($studentId) : [];
 
+$courseId = isset($_GET['course_id']) ? (int)$_GET['course_id'] : 0;
+if ($courseId > 0) {
+    $items = array_values(array_filter($items, function($r) use ($courseId) {
+        return isset($r['kurz']['id']) && (int)$r['kurz']['id'] === $courseId;
+    }));
+}
+
 make_header('WIS – Moje hodnocení', 'main'); // klidně vytvoř i vlastní CSS soubor, teď stačí main.css
 
 // seskupení a součty podle kurzu
@@ -39,7 +46,17 @@ function termTypeLabel($typ): string {
 
     <main>
         <div class="container py-5">
-            <h1 class="mb-3">Moje hodnocení</h1>
+            <h1 class="mb-3">
+                <?php if ($courseId > 0 && !empty($byCourse)): // ak ideme z moje kurzy -> moje hodnotenie, tak vypise len hodnotenie pre dany kurz 
+                    $first = reset($byCourse);                 // ak ideme z moje hodnotenie, vypise vsetky hodnotenia 
+                    $first = $first[0] ?? null;
+                    $code = $first ? htmlspecialchars($first['kurz']['zkratka'] ?: ('KURZ '.$courseId)) : ('Kurz '.$courseId);
+                    $name = $first ? htmlspecialchars($first['kurz']['nazev'] ?? '') : '';
+                    echo 'Moje hodnocení pro kurz: ' . $code . ($name ? ' – '.$name : '');
+                else: ?>
+                    Moje hodnocení
+                <?php endif; ?>
+            </h1>
             <hr>
             <?php if (empty($items)): ?>
                 <div class="alert alert-info">Zatím nemáš žádné záznamy hodnocení.</div>

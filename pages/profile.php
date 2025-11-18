@@ -19,7 +19,7 @@
         </header>
 
         <main>
-            <div class="container profile d-flex flex-column h-auto py-5">
+            <div class="container profile h-auto py-5">
                 <h1>Profil uživatele</h1>
                 <hr>
                 <div class="container details w-100 h-100">

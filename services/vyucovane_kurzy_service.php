@@ -15,6 +15,8 @@ class TaughtCoursesService
     {
         $links = $this->repo->getByCondition('lektor_uci_v_kurzu', [], ['uzivatel_ID' => $teacherId]);
         $out = [];
+        $seen = [];
+
         foreach ($links as $row) {
             $kurzId = (int)$row['kurz_ID'];
             $k = $this->repo->getOneById('Kurz', ['ID','zkratka','nazev','garant_ID'], $kurzId);
@@ -32,7 +34,29 @@ class TaughtCoursesService
                 'nazev'   => $k['nazev'] ?? '',
                 'garant'  => $g ? ($g['jmeno'].' '.$g['prijmeni']) : '',
             ];
+            $seen[$kurzId] = true;
         }
+
+        $garantKurz = $this->repo->getByCondition('Kurz', [], ['garant_ID' => $teacherId]); 
+        foreach ($garantKurz as $k) {
+            $kurzId = (int)$k['ID'];
+            if (isset($seen[$kurzId])) continue;
+
+            $g = null;
+            if (!empty($k['garant_ID'])) {
+                $g = $this->repo->getOneById('Uzivatel', ['ID','jmeno','prijmeni'], (int)$k['garant_ID']);
+            }
+
+            $out[] = [
+                'ID'      => (int)$k['ID'],
+                'zkratka' => $k['zkratka'] ?? '',
+                'nazev'   => $k['nazev'] ?? '',
+                'garant'  => $g ? ($g['jmeno'].' '.$g['prijmeni']) : '',
+            ];
+            $seen[$kurzId] = true;
+        }   
         return $out;
     }
+
+
 }

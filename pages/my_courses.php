@@ -21,7 +21,7 @@ $courses   = $service->getStudentCourses($studentId);
     </header>
 
     <main>
-        <div class="container d-flex flex-column py-5">
+        <div class="container py-5">
             <?php if (!empty($_GET['success'])): ?>
                 <div class="alert alert-success"><?= htmlspecialchars($_GET['success'], ENT_QUOTES, 'UTF-8') ?></div>
             <?php endif; ?>

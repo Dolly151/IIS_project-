@@ -67,7 +67,7 @@
             <?php include __DIR__ . '/menu.php'; ?>
         </header>
         <main>
-            <div class="container d-flex flex-column py-5">
+            <div class="container py-5">
                 <h1>Žádosti</h1>
                 <nav>
                     <a href="?view=my" class="type">Moje žádosti</a>
