@@ -44,12 +44,8 @@ make_header('WIS – Vypsat termín', 'main');
         <div>
           <label class="form-label">Typ</label>
           <select name="typ" class="form-select" required>
-            <option value="0">Přednáška</option>
             <option value="1">Cvičení</option>
             <option value="2">Zkouška</option>
-            <option value="3">Domácí úkol</option>
-            <option value="4">Projekt</option>
-            <option value="5">Seminář</option>
           </select>
         </div>
 

@@ -31,6 +31,13 @@ class TermService
     /** vytvoření termínu pro daný kurz */
     public function createTerm(int $courseId): bool
     {
+        $typ = isset($_POST['typ']) ? (int)$_POST['typ'] : 0;
+
+        // povolené typy termínu: 1 = cvičení, 2 = zkouška
+        if (!in_array($typ, [1, 2], true)) {
+            return false;
+        }
+        
         $roomId = isset($_POST['room_id']) && $_POST['room_id'] !== '' ? (int) $_POST['room_id'] : null;
 
         $data = [
