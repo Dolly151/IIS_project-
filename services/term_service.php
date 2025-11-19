@@ -31,15 +31,15 @@ class TermService
     /** vytvoření termínu pro daný kurz */
     public function createTerm(int $courseId): bool
     {
-        $roomId = isset($_POST['room_id']) && $_POST['room_id'] !== '' ? (int)$_POST['room_id'] : null;
+        $roomId = isset($_POST['room_id']) && $_POST['room_id'] !== '' ? (int) $_POST['room_id'] : null;
 
         $data = [
-            'nazev'      => $_POST['nazev'],
-            'typ'        => (int)$_POST['typ'],
-            'datum'      => $this->normalizeDatetime($_POST['datum']),
-            'popis'      => $_POST['popis'] ?? '',
-            'kapacita'   => (int)$_POST['kapacita'],
-            'kurz_ID'    => $courseId,
+            'nazev' => $_POST['nazev'],
+            'typ' => (int) $_POST['typ'],
+            'datum' => $this->normalizeDatetime($_POST['datum']),
+            'popis' => $_POST['popis'] ?? '',
+            'kapacita' => (int) $_POST['kapacita'],
+            'kurz_ID' => $courseId,
         ];
         // sloupec mistnost_ID přidej jen pokud je vybrán (vyhne se to NOT NULL chybě, pokud to máš NULLable)
         if ($roomId !== null) {
@@ -55,6 +55,17 @@ class TermService
     /** načti existující termíny kurzu (pro náhled po vytvoření) */
     public function listByCourse(int $courseId): array
     {
-        return $this->repo->getByCondition('Termin', ['ID','nazev','typ','datum','kapacita','mistnost_ID'], ['kurz_ID' => $courseId]);
+        return $this->repo->getByCondition('Termin', ['ID', 'nazev', 'typ', 'datum', 'kapacita', 'mistnost_ID'], ['kurz_ID' => $courseId]);
+    }
+    /** DETAIL termínu podle ID – pro term_detail.php */
+    public function getTermDetail(int $termId): ?array
+    {
+        $rows = $this->repo->getByCondition(
+            'Termin',
+            ['ID', 'nazev', 'typ', 'datum', 'popis', 'kapacita', 'mistnost_ID', 'kurz_ID'],
+            ['ID' => $termId]
+        );
+
+        return $rows[0] ?? null;
     }
 }
