@@ -19,7 +19,7 @@
         </header>
 
         <main>
-            <div class="container profile h-auto py-5">
+            <div class="container d-flex flex-column profile h-auto py-5">
                 <h1>Profil uživatele</h1>
                 <hr>
                 <div class="container details w-100 h-100">
@@ -38,13 +38,12 @@
                         </div>
                     <?php } ?>
                 </div>
+                <div class="container my-4">
+                    <a href="actions/logout_action.php" class="btn btn-primary">Odhlásit se</a>
+                    <a href="profile_edit.php?id=<?php echo urlencode($userDetails['ID']); ?>" class="btn btn-primary">Upravit</a>
+                    <a href="actions/delete_user_action.php" class="btn btn-primary" onclick="return confirm('Opravdu chcete smazat tenhle účet?')">Smazat účet</a>
+                </div>
             </div>
-            <div class="container text-center">
-                <a href="actions/logout_action.php" class="btn btn-primary">Odhlásit se</a>
-                <a href="profile_edit.php?id=<?php echo urlencode($userDetails['ID']); ?>" class="btn btn-primary">Upravit</a>
-                <a href="actions/delete_user_action.php" class="btn btn-primary" onclick="return confirm('Opravdu chcete smazat tenhle účet?')">Smazat účet</a>
-            </div>
-            
         </main>
     </div>
 

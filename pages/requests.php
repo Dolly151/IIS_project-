@@ -52,7 +52,7 @@
                             $html .= "<td>Žádost o garanta</td>";
                         } elseif ($val == RequestType::COURSE_REGISTRATION->value) {
                             $html .= "<td>Žádost o zápis do kurzu</td>";
-                        } elseif ($val == RequestType::COURSE_APPROVAL->value) {
+                        } elseif (($val == RequestType::COURSE_APPROVAL->value) && PermissionService::isUserAdmin()) {
                             $html .= "<td>Žádost o schválení kurzu</td>";
                         } else {
                             $html .= "<td>Neznámý typ</td>";
@@ -88,7 +88,9 @@
                 <h1>Žádosti</h1>
                 <nav>
                     <a href="?view=my" class="type">Moje žádosti</a>
-                    <a href="?view=approve" class="type">Žádosti ke schválení</a>
+                    <?php if (PermissionService::isUserAdmin() || PermissionService::isUserGarant()) { ?> 
+                        <a href="?view=approve" class="type">Žádosti ke schválení</a>
+                    <?php }?>    
                 </nav>
                 <hr>
                 <div>

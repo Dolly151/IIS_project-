@@ -38,7 +38,7 @@ make_header('Lektoři kurzu', 'main');
           </select>
           <!-- <div class="form-text">Seznam zobrazuje pouze uživatele s rolí <strong>LECTOR</strong>.</div> -->
         </div>
-        <div class="col-md-3 d-flex align-items-center">
+        <div class="col-md-3 d-flex align-items-end">
           <button class="btn btn-primary" type="submit">Přidat</button>
         </div>
       </form>

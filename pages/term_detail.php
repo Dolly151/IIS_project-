@@ -7,7 +7,7 @@ $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 $service = new TermService();
 $term = $id > 0 ? $service->getTermDetail($id) : null;
 
-make_header('Detail termínu', 'term_detail');
+make_header('Detail termínu', 'course_detail');
 ?>
 
 <body>
@@ -17,38 +17,37 @@ make_header('Detail termínu', 'term_detail');
             <?php include __DIR__ . '/menu.php'; ?>
         </header>
 
-
-        <main class="container mt-5">
+        <main class="container py-5">
             <h1>Detail termínu</h1>
             <hr>
 
             <?php if ($term): ?>
-                <table class="table">
-                    <tr>
-                        <th>Název</th>
-                        <td><?= htmlspecialchars($term['nazev']) ?></td>
-                    </tr>
-                    <tr>
-                        <th>Datum a čas</th>
-                        <td><?= htmlspecialchars($term['datum']) ?></td>
-                    </tr>
-                    <tr>
-                        <th>Popis</th>
-                        <td><?= htmlspecialchars($term['popis'] ?? '') ?></td>
-                    </tr>
-                    <tr>
-                        <th>Kapacita</th>
-                        <td><?= (int) $term['kapacita'] ?></td>
-                    </tr>
+                <div class="container h-50">
+                    <div class="row">
+                        <div class="col-sm-3 "><strong><p>Název</p></strong></div>
+                        <div class="col-sm-9"><p><?php echo htmlspecialchars($term['nazev']); ?></p></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3"><strong><p>Datum a čas</p></strong></div>
+                        <div class="col-sm-9"><p><?php echo htmlspecialchars($term['datum']); ?></p></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3"><strong><p>Popis</p></strong></div>
+                        <div class="col-sm-9"><p><?php echo htmlspecialchars($term['popis']); ?></p></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3"><strong><p>Kapacita</p></strong></div>
+                        <div class="col-sm-9"><p><?php echo htmlspecialchars($term['nazev']); ?></p></div>
+                    </div>
                     <?php if (!empty($term['kurz_ID'])): ?>
-                        <tr>
-                            <th>Předmět</th>
-                            <td>
-                                <a href="course_detail.php?id=<?= (int) $term['kurz_ID'] ?>">
+                        <div class="row">
+                            <div class="col-sm-3"><strong><p>Předmět</p></strong></div>
+                            <div class="col-sm-9">
+                                <button class="btn btn-primary" href="course_detail.php?id=<?= (int) $term['kurz_ID'] ?>">
                                     Zobrazit detail předmětu
-                                </a>
-                            </td>
-                        </tr>
+                                </button>
+                            </div>
+                        </div>
                     <?php endif; ?>
                 </table>
             <?php else: ?>

@@ -21,24 +21,24 @@
                 <h1>Přidat novou místnost</h1>
                 <hr>
                 <form action="actions/add_room_action.php" method="post">
-                    <div class="form-group">
+                    <div class="form-group mb-2">
                         <label for="text" class="form-label">Název</label>
                         <input type="text" class="form-control" placeholder="Zadajte název místnosti" name="nazev">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mb-2">
                         <label for="text" class="form-label">Typ</label>
                         <input type="text" class="form-control" placeholder="Zadajte typ místnosti" name="typ">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mb-2">
                         <label for="text" class="form-label">Popis</label>
                         <input type="text" class="form-control" placeholder="Zadajte popis místnosti" name="popis">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mb-2">
                         <label for="text" class="form-label">Kapacita</label>
                         <input type="text" class="form-control" placeholder="Zadajte kapacitu místnosti" name="kapacita">
                     </div>    
-                    <div class="form-group text-center my-5">
-                        <button type="submit" class="btn btn-primary">Přidat</button>
+                    <div class="form-group my-4">
+                        <button type="submit" class="btn btn-primary">Přidat místnost</button>
                     </div>
                 </form>
             </div>

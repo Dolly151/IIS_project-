@@ -43,29 +43,29 @@
 
                 <div class="container h-50 detail">
                     <div class="row">
-                        <div class="col-sm-3"><p>Název</p></div>
+                        <div class="col-sm-3"><strong><p>Název</p></strong></div>
                         <div class="col-sm-9"><p><?php echo htmlspecialchars($course['nazev']); ?></p></div>
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-3"><p>Garant</p></div>
+                        <div class="col-sm-3"><strong><p>Garant</p></strong></div>
                         <div class="col-sm-9">
                             <p><?php echo htmlspecialchars($course['garant']['jmeno'] . ' ' . $course['garant']['prijmeni']); ?></p>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-3"><p>Popis</p></div>
+                        <div class="col-sm-3"><strong><p>Popis</p></strong></div>
                         <div class="col-sm-9"><p><?php echo htmlspecialchars($course['popis']); ?></p></div>
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-3"><p>Cena</p></div>
+                        <div class="col-sm-3"><strong><p>Cena</p></strong></div>
                         <div class="col-sm-9"><p><?php echo htmlspecialchars($course['cena']); ?></p></div>
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-3"><p>Limit</p></div>
+                        <div class="col-sm-3"><strong><p>Limit</p></strong></div>
                         <div class="col-sm-9"><p><?php echo htmlspecialchars($course['limit']); ?></p></div>
                     </div>
 
@@ -74,7 +74,7 @@
                     $dny = [1=>'Pondělí',2=>'Úterý',3=>'Středa',4=>'Čtvrtek',5=>'Pátek'];
                     if (!empty($course['den']) && !empty($course['vyuka_od']) && !empty($course['vyuka_do'])): ?>
                         <div class="row">
-                            <div class="col-sm-3"><p>Výuka</p></div>
+                            <div class="col-sm-3"><strong><p>Výuka</p></strong></div>
                             <div class="col-sm-9">
                                 <p>
                                     <?php
