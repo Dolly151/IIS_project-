@@ -60,7 +60,7 @@ class CourseCreationService
                 // do nothing
 
             } else if ($_SESSION['role'] != PermissionLevel::GARANT->value) {
-                $this->requestService->createGarantRequest();
+                $this->requestService->createGarantRequest($lastId);
             }
             $this->requestService->createCourseApprovalRequest($lastId, 'Prosim o schválení kurzu');
         } else {

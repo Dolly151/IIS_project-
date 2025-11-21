@@ -12,10 +12,13 @@
     $selectedType = (isset($_GET['type']) && $_GET['type'] !== '') ? (int)$_GET['type'] : null; 
 
     $requestTypes = [
-        RequestType::GARANT_REQUEST->value => 'Žádost o garanta',
         RequestType::COURSE_REGISTRATION->value => 'Žádost o zápis do kurzu',
-        RequestType::COURSE_APPROVAL->value => 'Žádost o schválení kurzu',
-    ];       
+    ];
+
+    if (PermissionService::isUserAdmin()) {
+        $requestTypes[RequestType::GARANT_REQUEST->value] = 'Žádost o garanta';
+        $requestTypes[RequestType::COURSE_APPROVAL->value] = 'Žádost o schválení kurzu';
+    }  
 
     function filterRequestsByType(array $requests, ?int $type): array
     {
@@ -52,7 +55,7 @@
                             $html .= "<td>Žádost o garanta</td>";
                         } elseif ($val == RequestType::COURSE_REGISTRATION->value) {
                             $html .= "<td>Žádost o zápis do kurzu</td>";
-                        } elseif (($val == RequestType::COURSE_APPROVAL->value) && PermissionService::isUserAdmin()) {
+                        } elseif ($val == RequestType::COURSE_APPROVAL->value) {
                             $html .= "<td>Žádost o schválení kurzu</td>";
                         } else {
                             $html .= "<td>Neznámý typ</td>";

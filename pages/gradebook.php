@@ -4,12 +4,14 @@ require_once('../services/permission_service.php');
 require_once('../services/grades_service.php');
 
 $courseId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+
 if ($courseId <= 0) { http_response_code(400); die('Chybí ID kurzu'); }
 
 if (!PermissionService::isUserLoggedIn()) { http_response_code(401); die('Přihlaste se.'); }
 
 $svc    = new GradesService();
 $userId = (int)($_SESSION['user_id'] ?? 0);
+$course = $svc->getCourseLabelById($courseId);
 
 $allowed = PermissionService::isUserLoggedIn()
     && (PermissionService::isUserAdmin() || PermissionService::isUserGarant() || $svc->isTeacherOfCourse($courseId, $userId));
@@ -28,7 +30,7 @@ make_header('WIS – Seznam studentů', 'grades');
   <main>
     <div class="container py-5">
       <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1 class="m-0">Seznam studentů – kurz #<?= (int)$courseId ?></h1>
+        <h1 class="m-0">Seznam studentů – kurz <?= $course ?></h1>
         <a class="btn btn-primary" href="grade_add.php?id=<?= (int)$courseId ?>">Přidat hodnocení</a>
       </div>
       <hr>

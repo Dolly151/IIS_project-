@@ -2,11 +2,15 @@
 require_once('../common/common.php');
 require_once('../services/permission_service.php');
 require_once('../services/teacher_service.php');
+require_once('../services/grades_service.php');
 
 PermissionService::requireRole(PermissionLevel::GARANT);
 
 $courseId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 if ($courseId <= 0) { redirect('/pages/overview.php?error='.urlencode('Chybí ID kurzu')); exit; }
+
+$gs    = new GradesService();
+$course = $gs->getCourseLabelById($courseId);
 
 $svc = new TeacherService();
 
@@ -23,7 +27,7 @@ make_header('Lektoři kurzu', 'main');
   </header>
   <main>
     <div class="container py-5">
-      <h1>Lektoři kurzu #<?= (int)$courseId ?></h1>
+      <h1>Lektoři kurzu <?= $course ?></h1>
       <hr>
 
       <form class="row g-2 mb-4" method="post" action="actions/teacher_add_action.php">
@@ -36,7 +40,6 @@ make_header('Lektoři kurzu', 'main');
               <option value="<?= (int)$u['ID'] ?>"><?= htmlspecialchars($u['jmeno'].' '.$u['prijmeni'].' ('.$u['login'].')') ?></option>
             <?php endforeach; ?>
           </select>
-          <!-- <div class="form-text">Seznam zobrazuje pouze uživatele s rolí <strong>LECTOR</strong>.</div> -->
         </div>
         <div class="col-md-3 d-flex align-items-end">
           <button class="btn btn-primary" type="submit">Přidat</button>

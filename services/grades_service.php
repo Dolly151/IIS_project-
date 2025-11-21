@@ -174,4 +174,16 @@ class GradesService
         }
     }
 
+    public function getCourseFromId(int $courseId): array 
+    {
+        $course = $this->repository->getOneById('Kurz', ['ID','nazev'], $courseId);
+        return $course ?: null; 
+    } 
+
+    public function getCourseLabelById(int $courseId): string
+    {
+        $course = $this->getCourseFromId($courseId);
+        if (!$course) return '#' . (int)$courseId;
+        return trim((string)($course['nazev'] ?? ''));
+    }
 }

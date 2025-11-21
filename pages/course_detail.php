@@ -16,7 +16,9 @@
     $myCoursesService = new MyCoursesService();
     $gradesService    = new GradesService();
 
+    $studentId = (int)($_SESSION['user_id'] ?? 0);
     $course = $service->getCourseDetail($id);
+    $status = isset($course['status']) ? (int)$course['status'] : null;
 
     // když se kurz nenašel
     if (!$course) {
@@ -85,6 +87,12 @@
                             </div>
                         </div>
                     <?php endif; ?>
+                    <?php if ($status === 0) { ?>
+                        <div class="row">
+                            <div class="col-sm-3"><strong><p>Status</p></strong></div>
+                            <div class="col-sm-9" style="color: var(--color-primary)"><p>Čeká na schválení</p></div>
+                        </div>
+                    <?php } ?>
                 </div>
 
                 <!-- Akční tlačítka -->
@@ -93,7 +101,6 @@
                     <?php
                     // Tlačítko pro přidání do kurzu (jen pro STUDENTA, který ještě není zapsán)
                     if (PermissionService::isUserLoggedIn() && (PermissionService::isUserStudent() || PermissionService::isUserGuest())) { // registrovany uzivatel se stane studentem az po zapsani
-                        $studentId = (int)($_SESSION['user_id'] ?? 0);
                         $isStudentInCourse = $myCoursesService->isStudentInCourse($studentId, $id);
 
                         if (!$isStudentInCourse) { ?>
@@ -104,7 +111,7 @@
 
                     <?php
                     // Tlačítko „Spravovat lektory“ (jen pro GARANTA TOHOTO kurzu)
-                    if (PermissionService::isUserLoggedIn() && PermissionService::isUserGarant()) {
+                    if (PermissionService::isUserLoggedIn() && PermissionService::isUserGarant() && $status === 1) {
                         $currentUserId = (int)($_SESSION['user_id'] ?? 0);
                         if (!empty($course['garant_ID']) && (int)$course['garant_ID'] === $currentUserId) { ?>
                             <a class="btn btn-primary" href="course_teachers.php?id=<?= (int)$id ?>">

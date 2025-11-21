@@ -10,6 +10,7 @@ if ($courseId <= 0) { http_response_code(400); die('Chybí ID kurzu'); }
 if (!PermissionService::isUserLoggedIn()) { http_response_code(401); die('Přihlaste se.'); }
 $gs  = new GradesService();
 $uid = (int)($_SESSION['user_id'] ?? 0);
+$course = $gs->getCourseLabelById($courseId);
 
 $allowed = (PermissionService::isUserAdmin() || PermissionService::isUserGarant() || $gs->isTeacherOfCourse($courseId, $uid));
 if (!$allowed) { http_response_code(403); die('Přístup zamítnut'); }
@@ -28,8 +29,8 @@ make_header('WIS – Vypsat termín', 'main');
   <main>
     <div class="container py-5">
       <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1 class="m-0">Vypsat termín – kurz #<?= (int)$courseId ?></h1>
-        <a class="btn btn-primary" href="taught_courses.php">Zpět na vyučované kurzy</a>
+        <h1 class="m-0">Vypsat termín – kurz <?= $course ?></h1>
+        <a class="btn btn-primary" href="vyucovane_kurzy.php">Zpět na vyučované kurzy</a>
       </div>
       <hr>
 

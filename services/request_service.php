@@ -75,8 +75,12 @@ class RequestService
 
     private function getGarantRequests(): array
     {
-        $requests = $this->repository->getByCondition('Zadost', ['ID', 'datum', 'typ', 'uzivatel_ID'], ['typ' => RequestType::GARANT_REQUEST->value]);
+        $requests = $this->repository->getByCondition('Zadost', ['ID', 'datum', 'typ', 'uzivatel_ID', 'kurz_ID'], ['typ' => RequestType::GARANT_REQUEST->value]);
         foreach ($requests as &$request) {
+            $course = $this->repository->getOneById('Kurz', ['nazev'], $request['kurz_ID']);
+            if ($course) {
+                $request['kurz_ID'] = $course;
+            }
             $user = $this->repository->getOneById('Uzivatel', ['jmeno', 'prijmeni'], $request['uzivatel_ID']);
             if ($user) {
                 $request['uzivatel_ID'] = $user;
@@ -85,12 +89,13 @@ class RequestService
         return $requests;
     }
 
-    public function createGarantRequest(string $popis = ''): bool
+    public function createGarantRequest(int $kurzId, string $popis = ''): bool
     {
         $data = [
             'datum' => date('Y-m-d'),
             'typ' => RequestType::GARANT_REQUEST->value,
             'uzivatel_ID' => $_SESSION['user_id'],
+            'kurz_ID' => $kurzId, 
             'popis' => $popis
         ];
 

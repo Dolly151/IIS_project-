@@ -13,7 +13,7 @@ class DetailService
 
     public function getCourseDetail($id): array 
     {
-        $course = $this->repository->getOneById('Kurz', ['nazev', 'popis', 'garant_ID', 'cena', 'limit', 'den', 'vyuka_od', 'vyuka_do'], $id);
+        $course = $this->repository->getOneById('Kurz', ['nazev', 'popis', 'garant_ID', 'cena', 'limit', 'den', 'vyuka_od', 'vyuka_do', 'status'], $id);
         if (!$course) 
         {
             return [];

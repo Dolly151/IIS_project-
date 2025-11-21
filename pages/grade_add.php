@@ -10,6 +10,7 @@ if (!PermissionService::isUserLoggedIn()) { http_response_code(401); die('Přihl
 
 $svc    = new GradesService();
 $userId = (int)($_SESSION['user_id'] ?? 0);
+$course = $svc->getCourseLabelById($courseId);
 
 $allowed = PermissionService::isUserLoggedIn()
     && (PermissionService::isUserAdmin() || PermissionService::isUserGarant() || $svc->isTeacherOfCourse($courseId, $userId));
@@ -31,7 +32,7 @@ make_header('WIS – Přidat hodnocení', 'grades');
   <main>
     <div class="container py-5">
       <div class="d-flex align-items-center justify-content-between">
-        <h1 class="m-0">Přidat hodnocení – kurz #<?= (int)$courseId ?></h1>
+        <h1 class="m-0">Přidat hodnocení – kurz <?= $course ?></h1>
         <a class="btn btn-primary" href="gradebook.php?id=<?= (int)$courseId ?>">Zpět na seznam</a>
       </div>
       <hr>

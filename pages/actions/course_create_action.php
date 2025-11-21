@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($courseCreateService->isEverythingSetForCreate()) {
         $courseId = $courseCreateService->createCourse();
         if ($courseId) {
-            redirect("../course_detail.php?id=" . $courseId . "&success=Kurz byl úspěšně vytvořen");
+            redirect("../course_detail.php?id=" . $courseId . "&success=Žádost o nový kurz byla vytvořena");
             exit();
         } else {
             $error_message = "Chyba při vytváření kurzu.";

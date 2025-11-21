@@ -2,9 +2,8 @@
 require_once('../common/common.php');
 require_once('../services/room_service.php');
 
-// ⬇️ DOPLNIT: načtení místností
 $roomService = new RoomService();
-// pokud máš metodu getAll(), použij ji; jinak getAllRooms()
+
 $rooms = method_exists($roomService, 'getAll')
     ? $roomService->getAll()
     : $roomService->getAllRooms();
@@ -21,37 +20,36 @@ make_header('WIS - vytvoření kurzu', 'course_create');
 
         <main>
             <div class="container login-container py-5">
-                <!-- ⬇️ tlačítko musí být uvnitř FORM a mít jen jeden </form> -->
                 <form action="actions/course_create_action.php" method="post">
                     <h1>Vytvoření kurzu</h1>
                     <hr>
 
-                    <div class="form-group">
+                    <div class="form-group mb-2">
                         <label class="form-label">Zkratka</label>
                         <input type="text" class="form-control" placeholder="Zadejte zkratku" name="zkratka" required>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group mb-2">
                         <label class="form-label">Název</label>
                         <input type="text" class="form-control" placeholder="Zadejte název" name="nazev" required>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group mb-2">
                         <label class="form-label">Popis</label>
                         <input type="text" class="form-control" placeholder="Zadejte popis" name="popis" required>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group mb-2">
                         <label class="form-label">Cena</label>
                         <input type="number" min="0" class="form-control" placeholder="Zadejte cenu" name="cena" required>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group mb-2">
                         <label class="form-label">Limit</label>
                         <input type="number" min="1" class="form-control" placeholder="Zadejte limit" name="limit" required>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group mb-2">
                         <label class="form-label">Vyberte den:</label>
                         <select id="den" class="form-control" name="den" required>
                             <option value="1">Pondělí</option>
@@ -62,18 +60,14 @@ make_header('WIS - vytvoření kurzu', 'course_create');
                         </select>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group mb-2">
                         <label class="form-label">Výuka od</label>
                         <input type="time" class="form-control" name="vyuka_od" required>
-                    </div>
-
-                    <div class="form-group">
                         <label class="form-label">Výuka do</label>
                         <input type="time" class="form-control" name="vyuka_do" required>
                     </div>
 
-                    <!-- ⬇️ výběr místnosti (pozor na velké 'ID' podle tvé DB) -->
-                    <div class="form-group">
+                    <div class="form-group mb-2">
                         <label class="form-label">Místnost</label>
                         <select id="room_id" name="room_id" class="form-control" required>
                             <option value="">— vyberte —</option>
@@ -88,7 +82,7 @@ make_header('WIS - vytvoření kurzu', 'course_create');
                         </select>
                     </div>
 
-                    <div class="form-group text-center mt-3">
+                    <div class="form-group mt-2">
                         <button type="submit" class="btn btn-primary">Vytvořit kurz</button>
                     </div>
                 </form>

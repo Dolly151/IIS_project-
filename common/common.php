@@ -21,12 +21,6 @@
     <?php 
     }
 
-    /* TODO
-    function make_footer() {
-
-    }*/
-
-
     // function redirect(string $path): never {
     //     // 1) plná URL? pošli ji rovnou
     //     if (preg_match('~^https?://~i', $path)) {

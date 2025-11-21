@@ -13,12 +13,17 @@ class TaughtCoursesService
     /** Všechny kurzy, které učí daný uživatel (lektor) podle tabulky lektor_uci_v_kurzu */
     public function listByTeacher(int $teacherId): array
     {
+        $activeCourses = $this->repo->getByCondition('Kurz', [], ['status' => 1]);
+        $activeCourseIds = array_column($activeCourses, 'ID');
+        
         $links = $this->repo->getByCondition('lektor_uci_v_kurzu', [], ['uzivatel_ID' => $teacherId]);
         $out = [];
         $seen = [];
 
         foreach ($links as $row) {
             $kurzId = (int)$row['kurz_ID'];
+            if (!in_array($kurzId, $activeCourseIds)) continue;
+
             $k = $this->repo->getOneById('Kurz', ['ID','zkratka','nazev','garant_ID'], $kurzId);
             if (!$k) continue;
 
@@ -40,8 +45,8 @@ class TaughtCoursesService
         $garantKurz = $this->repo->getByCondition('Kurz', [], ['garant_ID' => $teacherId]); 
         foreach ($garantKurz as $k) {
             $kurzId = (int)$k['ID'];
-            if (isset($seen[$kurzId])) continue;
-
+            if (isset($seen[$kurzId]) || !in_array($kurzId, $activeCourseIds)) continue;
+            
             $g = null;
             if (!empty($k['garant_ID'])) {
                 $g = $this->repo->getOneById('Uzivatel', ['ID','jmeno','prijmeni'], (int)$k['garant_ID']);

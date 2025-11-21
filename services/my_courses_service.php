@@ -41,6 +41,8 @@ class MyCoursesService
                 $garant = $this->repository->getOneById('Uzivatel', ['jmeno','prijmeni'], (int)$course['garant_ID']);
             }
 
+            $status = isset($course['status']) ? (int)$course['status'] : 0;
+
             $out[] = [
                 'id'     => (int)$course['ID'],
                 'nazev'  => $course['nazev'] ?? '',
@@ -48,6 +50,7 @@ class MyCoursesService
                 'cena'   => $course['cena'] ?? null,
                 'limit'  => $course['limit'] ?? null,
                 'garant' => $garant ?: null,
+                'status' => $status
             ];
         }
 

@@ -22,7 +22,7 @@
 
         <main>
             <div class="container d-flex flex-column h-auto py-5">
-            <h1>Úprava místnosti <?php echo urlencode($roomDetails['nazev']); ?></h1>
+            <h1>Úprava místnosti - <?php echo htmlspecialchars($roomDetails['nazev']); ?></h1>
                 <hr>
                 <form action="actions/room_edit_action.php?id=<?php echo urlencode($id); ?>" method="post">
                     <div class="form-group">
